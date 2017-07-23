@@ -20,3 +20,5 @@ docker run -p 8010:80 sps
 ```
 
 After that, the site should be running on `localhost:8010`.
+
+Once you initially `docker pull` the Apache server with PHP 5.4 (`uknetweb/php-5.4-apache`) you won't need to run that command again.
