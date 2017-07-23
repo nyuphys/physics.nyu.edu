@@ -1,0 +1,6 @@
+/vendor/
+composer.lock
+composer.phar
+
+# OSX Garbage
+*.DS_Store
