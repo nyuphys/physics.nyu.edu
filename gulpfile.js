@@ -1,18 +1,21 @@
 const gulp       = require('gulp'),
       sass       = require('gulp-scss'),
       fconcat    = require('gulp-concat'),
+      clean      = require('gulp-clean'),
       cssmin     = require('gulp-csso'),
       child      = require('child_process'),
+      sequence   = require('gulp-sequence').use(gulp),
 
       THEME_NAME = 'sps',
-      THEME_DIR  = `web/themes/${THEME_NAME}`;
+      THEME_DIR  = `web/themes/${THEME_NAME}`,
+      BUILD_DIR  = '.build';
 
 
 /**
  * Set up the project; one-time use task
  *
  */
-gulp.task('config', () => {
+gulp.task('pull-apache', () => {
   child.exec('docker pull uknetweb/php-5.4-apache', (error, stdout, stderr) => {
     if (!!error) {
       console.error(`Runtime error: ${error}`);
@@ -22,8 +25,31 @@ gulp.task('config', () => {
     console.log(stdout);
     console.log(stderr);
   });
+});
 
-  gulp.task('default');
+/**
+ * Sets up the docker container with the latest build
+ *
+ */
+gulp.task('dock', () => {
+  child.exec('docker build -t sps .', (error, stdout, stderr) => {
+    if (!!error) {
+      console.error(`Runtime error: ${error}`);
+      return;
+    }
+
+    console.log(stdout);
+    console.log(stderr);
+  });
+});
+
+/**
+ * Clear out the previous build folder
+ *
+ */
+gulp.task('clean', () => {
+  gulp.src(BUILD_DIR, {read: false})
+    .pipe(clean({force: true}));
 });
 
 
@@ -47,7 +73,7 @@ gulp.task('sass-dev', () => {
     .pipe(sass())
     .pipe(fconcat('style.min.css'))
     .pipe(cssmin({restructure: false}))
-    .pipe(gulp.dest(THEME_DIR));
+    .pipe(gulp.dest(`${BUILD_DIR}/css`));
 });
 
 /**
@@ -57,6 +83,37 @@ gulp.task('sass-dev', () => {
 gulp.task('sass-prod', () => {
   return gulp.src('src/sass/*.scss')
     .pipe(sass())
+    .pipe(fconcat('style.min.css'))
+    .pipe(cssmin())
+    .pipe(gulp.dest(`${BUILD_DIR}/css`));
+});
+
+/**
+ * Move vendor CSS assets to temp build
+ *
+ */
+gulp.task('vendor-css-build', () => {
+  return gulp.src('vendor/css/*.css')
+    .pipe(gulp.dest(`${BUILD_DIR}/css`));
+});
+
+/**
+ * Bundle CSS assets together and put into theme directory; development mode
+ *
+ */
+gulp.task('css-bundle-dev', () => {
+  return gulp.src(`${BUILD_DIR}/css/*.css`)
+    .pipe(fconcat('style.min.css'))
+    .pipe(cssmin({restructure: false}))
+    .pipe(gulp.dest(THEME_DIR));
+});
+
+/**
+ * Bundle CSS assets together and put into theme directory; production mode
+ *
+ */
+gulp.task('css-bundle-prod', () => {
+  return gulp.src(`${BUILD_DIR}/css/*.css`)
     .pipe(fconcat('style.min.css'))
     .pipe(cssmin())
     .pipe(gulp.dest(THEME_DIR));
@@ -76,21 +133,11 @@ gulp.task('watch', () => {
   });
 });
 
-/**
- * Sets up the docker container with the latest build
- *
- */
-gulp.task('dock', () => {
-  child.exec('docker build -t sps .', (error, stdout, stderr) => {
-    if (!!error) {
-      console.error(`Runtime error: ${error}`);
-      return;
-    }
+// CSS specific combined tasks
+gulp.task('css-dev', sequence(['sass-dev', 'vendor-css-build'], 'css-bundle-dev'));
+gulp.task('css-prod', sequence(['sass-prod', 'vendor-css-build'], 'css-bundle-prod'));
 
-    console.log(stdout);
-    console.log(stderr);
-  });
-});
-
-gulp.task('default', ['twig', 'sass-dev', 'dock']);
-gulp.task('production', ['twig', 'sass-prod', 'dock']);
+// Prefered executables
+gulp.task('default', sequence(['twig', 'css-dev'], 'clean'));
+gulp.task('config', sequence(['pull-apache', 'dock'], 'default'));
+gulp.task('production', sequence(['twig', 'css-prod'], 'clean'));
