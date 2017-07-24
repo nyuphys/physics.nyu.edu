@@ -1,5 +1,6 @@
 const gulp       = require('gulp'),
       sass       = require('gulp-scss'),
+      fconcat    = require('gulp-concat'),
       cssmin     = require('gulp-csso'),
       child      = require('child_process'),
 
@@ -44,6 +45,7 @@ gulp.task('twig', () => {
 gulp.task('sass-dev', () => {
   return gulp.src('src/sass/*.scss')
     .pipe(sass())
+    .pipe(fconcat('style.min.css'))
     .pipe(cssmin({restructure: false}))
     .pipe(gulp.dest(THEME_DIR));
 });
@@ -55,6 +57,7 @@ gulp.task('sass-dev', () => {
 gulp.task('sass-prod', () => {
   return gulp.src('src/sass/*.scss')
     .pipe(sass())
+    .pipe(fconcat('style.min.css'))
     .pipe(cssmin())
     .pipe(gulp.dest(THEME_DIR));
 });
@@ -90,4 +93,4 @@ gulp.task('dock', () => {
 });
 
 gulp.task('default', ['twig', 'sass-dev', 'dock']);
-gulp.tast('production', ['twig', 'sass-prod', 'dock']);
+gulp.task('production', ['twig', 'sass-prod', 'dock']);
