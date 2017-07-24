@@ -1,0 +1,20 @@
+{
+  "name": "nyu-sps-site",
+  "version": "1.0.0",
+  "license": "MIT",
+  "contributors": [
+    {
+      "name": "Patrick Anker",
+      "email": "psanker@nyu.edu"
+    },
+    {
+      "name": "Mitchell Karmen",
+      "email": "mitchell.karmen@nyu.edu"
+    }
+  ],
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-scss": "^1.4.0",
+    "gulp-csso": "^3.0.0"
+  }
+}

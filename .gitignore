@@ -1,2 +1,13 @@
-# OSX Garbage
+# OSX
 *.DS_Store
+
+# Node
+node_modules
+package-lock.json
+
+# SASS
+.gulp-scss-cache
+.sass-cache
+
+# Themes that we need to build
+web/themes/sps

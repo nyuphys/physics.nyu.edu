@@ -2,20 +2,27 @@
 
 Aight. So I configured this the best I can.
 
-## Install
-You will need [Docker](https://www.docker.com/) in order to run this. It's basically a tool that makes very thin virtual machines (more or less). That way the development branch can mimic the behavior on the live server.
+## Installation
+To work on the design, you need [Node](https://nodejs.org). The current LTS version would be preferable. Node will handle all the design asset building.
 
-After that, clone this project:
+You will need [Docker](https://www.docker.com/) as well in order to run the server.
+
+## Configuration
+Firstly, install the `gulp` command line interface if you don't already have it via
 ```
-git clone https://github.com/psanker/physics.nyu.edu.git
+npm i -g gulp-cli
 ```
 
-## Running
-After installing Docker, run these commands in the project's directory:
-
+Then, install the project files with
 ```
-docker pull uknetweb/php-5.4-apache
-docker build -t sps .
+npm i .
+gulp config
+```
+This will set up the project and build it for the first time. While working on the project, it would be handy to use `gulp watch`. This will build the project once any files are saved in the project `src` directory.
+
+## Running the Development Site
+To deploy the site, build the project and then run the Docker container via
+```
 docker run -p 8010:80 sps
 ```
 
