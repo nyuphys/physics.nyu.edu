@@ -19,19 +19,19 @@
 /*
  * BASIC
  */
-// $config['site_title'] = 'NYU Society of Physics Students'; // Site title
+$config['site_title'] = 'NYU Society of Physics Students'; // Site title
 // $config['base_url'] = '';                                  // Override base URL (e.g. http://example.com)
-// $config['rewrite_url'] = true;                             // A boolean indicating forced URL rewriting
+$config['rewrite_url'] = false;                             // A boolean indicating forced URL rewriting
 
 /*
  * THEME
  */
-// $config['theme'] = 'default';                // Set the theme (defaults to "default")
-// $config['twig_config'] = array(              // Twig settings
-//     'cache' => false,                        // To enable Twig caching change this to a path to a writable directory
-//     'autoescape' => false,                   // Auto-escape Twig vars
-//     'debug' => false                         // Enable Twig debug
-// );
+$config['theme'] = 'sps';                                // Set the theme (defaults to "default")
+$config['twig_config'] = array(                              // Twig settings
+    'cache' => false,                                        // To enable Twig caching change this to a path to a writable directory
+    'autoescape' => false,                                   // Auto-escape Twig vars
+    'debug' => false
+);
 
 /*
  * CONTENT

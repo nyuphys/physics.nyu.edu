@@ -10,39 +10,6 @@ const gulp       = require('gulp'),
       THEME_DIR  = `web/themes/${THEME_NAME}`,
       BUILD_DIR  = '.build';
 
-
-/**
- * Set up the project; one-time use task
- *
- */
-gulp.task('pull-apache', () => {
-  child.exec('docker pull uknetweb/php-5.4-apache', (error, stdout, stderr) => {
-    if (!!error) {
-      console.error(`Runtime error: ${error}`);
-      return;
-    }
-
-    console.log(stdout);
-    console.log(stderr);
-  });
-});
-
-/**
- * Sets up the docker container with the latest build
- *
- */
-gulp.task('dock', () => {
-  child.exec('docker build -t sps .', (error, stdout, stderr) => {
-    if (!!error) {
-      console.error(`Runtime error: ${error}`);
-      return;
-    }
-
-    console.log(stdout);
-    console.log(stderr);
-  });
-});
-
 /**
  * Clear out the previous build folder
  *
@@ -125,19 +92,24 @@ gulp.task('css-bundle-prod', () => {
  *
  */
 gulp.task('watch', () => {
-  var watcher = gulp.watch('src/**/*', ['default']);
+  gulp.watch('src/**/*', ['default']);
   console.log('Keeping an eye on the project files...');
-
-  watcher.on('change', (e) => {
-    console.log(`Rendering new file: ${e.path}`);
-  });
 });
 
 // CSS specific combined tasks
-gulp.task('css-dev', sequence(['sass-dev', 'vendor-css-build'], 'css-bundle-dev'));
-gulp.task('css-prod', sequence(['sass-prod', 'vendor-css-build'], 'css-bundle-prod'));
+gulp.task('css-dev', (callback) => {
+  sequence(['sass-dev', 'vendor-css-build'], 'css-bundle-dev')(callback);
+});
+
+gulp.task('css-prod', (callback) => {
+  sequence(['sass-prod', 'vendor-css-build'], 'css-bundle-prod')(callback);
+});
 
 // Prefered executables
-gulp.task('default', sequence(['twig', 'css-dev'], 'clean'));
-gulp.task('config', sequence(['pull-apache', 'dock'], 'default'));
-gulp.task('production', sequence(['twig', 'css-prod'], 'clean'));
+gulp.task('default', (callback) => {
+  sequence(['twig', 'css-dev'], 'clean')(callback);
+});
+
+gulp.task('production', (callback) => {
+  sequence(['twig', 'css-prod'], 'clean')(callback);
+});

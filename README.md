@@ -16,14 +16,13 @@ npm i -g gulp-cli
 Then, install the project files with
 ```
 npm i .
-gulp config
 ```
 This will set up the project and build it for the first time. While working on the project, it would be handy to use `gulp watch`. This will build the project once any files are saved in the project `src` directory.
 
 ## Running the Development Site
 To deploy the site, build the project and then run the Docker container via
 ```
-docker run -p 8010:80 sps
+docker-compose up
 ```
 
-After that, the site should be running on `localhost:8010`.
+This should build the container for the site and mirror any changes in the `web` directory to the live site, which should be running on `localhost:8010`. NB: `docker-compose` is bundled with Docker for OSX and Docker for Windows *but if you are using a Linux distro, you will need to install it separately.*

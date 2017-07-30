@@ -1,1 +1,20 @@
-@import 'globals'
+@import 'globals';
+
+html {
+  height: 100%;
+
+  body {
+    background-color: $nyupurple;
+    width: 100%;
+    min-height: 100%;
+  }
+}
+
+.nav {
+  position: absolute;
+  top: 0;
+  right: 100%;
+  width: 230px;
+  height: 100%;
+  background-color: $white;
+}

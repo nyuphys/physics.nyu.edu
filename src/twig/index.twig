@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    {# idk if i want to enable zooming #}
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+
+    <title>{% if meta.title %}{{meta.title}} | {% endif %}{{site_title}}</title>
+
+    {% if meta.description %}
+      <meta name="description" content="{{ meta.description|striptags }}">
+    {% endif %}
+    {% if meta.robots %}
+      <meta name="robots" content="{{ meta.robots }}">
+    {% endif %}
+
+    <link rel="stylesheet" href="{{ theme_url }}/style.min.css" />
+  </head>
+
+  <body>
+    <nav class="nav">
+
+    </nav>
+
+    <div class="container">
+      {% if is_front_page %}
+        <header class="header">
+
+        </header>
+      {% endif %}
+
+      <section class="content">
+        {% if is_front_page %}
+        {# Landing page content #}
+          {% for page in paged_posts %}
+
+          {% endfor %}
+
+        {% else %}
+        {# Single page content #}
+
+        {% endif %}
+      </section>
+    </div>
+  </body>
+</html>
