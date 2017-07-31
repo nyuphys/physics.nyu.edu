@@ -29,6 +29,16 @@ gulp.task('twig', () => {
     .pipe(gulp.dest(THEME_DIR));
 });
 
+/**
+ * Move all image assets (JPG, PNG, and SVG) into the theme directory
+ *
+ */
+gulp
+gulp.task('img-assets', () => {
+  return gulp.src(['assets/*.jpg', 'assets/*.png', 'assets/*.svg'])
+    .pipe(gulp.dest(`${THEME_DIR}/img`));
+});
+
 
 /**
  * Compile the SASS files to CSS, but don't completely restructure
@@ -107,9 +117,9 @@ gulp.task('css-prod', (callback) => {
 
 // Prefered executables
 gulp.task('default', (callback) => {
-  sequence(['twig', 'css-dev'], 'clean')(callback);
+  sequence(['twig', 'img-assets', 'css-dev'], 'clean')(callback);
 });
 
 gulp.task('production', (callback) => {
-  sequence(['twig', 'css-prod'], 'clean')(callback);
+  sequence(['twig', 'img-assets', 'css-prod'], 'clean')(callback);
 });
