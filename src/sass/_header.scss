@@ -26,12 +26,24 @@
   }
 
   .header-cat-container {
-    position: absolute;
+    position: fixed;
     bottom: 0;
-    right: 0;
     overflow: hidden;
     width: 500px;
     height: 630px;
+    z-index: -1;
+
+    @media screen and (max-width: $screen-xs-max) {
+      right: $nav_xs_width;
+    }
+
+    @media screen and (min-width: $screen-sm-min) and (max-width: $screen-sm-max) {
+      right: $nav_sm_width;
+    }
+
+    @media screen and (min-width: $screen-md-min) {
+      right: $nav_md_width;
+    }
 
     .cat-svg {
       width: 180%;

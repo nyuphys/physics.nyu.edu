@@ -75,6 +75,20 @@ gulp.task('vendor-css-build', () => {
 });
 
 /**
+ * Move vendor fonts to theme directory
+ *
+ */
+gulp.task('vendor-font-build', () => {
+  return gulp.src(['vendor/fonts/*.eot',
+                   'vendor/fonts/*.svg',
+                   'vendor/fonts/*.ttf',
+                   'vendor/fonts/*.woff',
+                   'vendor/fonts/*.woff2',
+                   'vendor/fonts/*.otf'])
+    .pipe(gulp.dest(`${THEME_DIR}/fonts`));
+});
+
+/**
  * Bundle CSS assets together and put into theme directory; development mode
  *
  */
@@ -117,9 +131,9 @@ gulp.task('css-prod', (callback) => {
 
 // Prefered executables
 gulp.task('default', (callback) => {
-  sequence(['twig', 'img-assets', 'css-dev'], 'clean')(callback);
+  sequence(['twig', 'img-assets', 'css-dev', 'vendor-font-build'], 'clean')(callback);
 });
 
 gulp.task('production', (callback) => {
-  sequence(['twig', 'img-assets', 'css-prod'], 'clean')(callback);
+  sequence(['twig', 'img-assets', 'css-prod', 'vendor-font-build'], 'clean')(callback);
 });

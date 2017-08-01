@@ -1,4 +1,3 @@
-@import 'bootstrap';
 @import 'globals';
 
 // 1. Resets
@@ -116,6 +115,7 @@ body {
     left: 0;
     height: 100%;
     background-color: $nyupurple;
+    z-index: -10;
 
     @media screen and (max-width: $screen-xs-max) {
       width: calc(100% - #{$nav_xs_width});
@@ -140,3 +140,6 @@ body {
 
 // 4. Posts
 @import 'posts';
+
+// 5. Footer
+@import 'footer';

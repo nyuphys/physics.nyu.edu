@@ -21,6 +21,14 @@
     {% if is_front_page %}
       <script src="http://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
     {% endif %}
+
+    <!-- MathJax support - add LaTeX! -->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      });
+    </script>
+    <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_CHTML"></script>
   </head>
 
   <body>
@@ -46,6 +54,12 @@
       <section class="content row">
         {{ include('posts.twig') }}
       </section>
+
+      <footer class="footer row">
+        <div class="footer-container col-md-8 col-md-offset-2">
+          
+        </div>
+      </footer>
     </div>
 
     <nav class="nav">
@@ -65,7 +79,7 @@
             $('#cat-svg').addClass('fadeout');
           } else {
             if ($('#cat-svg').hasClass('fadeout')) {
-              $('#cat-svg').removeClass('fadeout')
+              $('#cat-svg').removeClass('fadeout');
             }
           }
         });
