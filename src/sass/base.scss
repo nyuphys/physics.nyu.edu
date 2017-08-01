@@ -3,19 +3,20 @@
 
 // 1. Resets
 html {
+  min-height: 100%;
+  position: relative;
+}
+
+body {
+  margin: 0;
+  overflow: auto;
+  width: 100%;
   height: 100%;
-  overflow: hidden;
+  background-color: $white;
 
-  body {
-    margin: 0;
-    background-color: $nyupurple;
-    width: 100%;
-    min-height: 100%;
-
-    // General text behavior
-    font-family: 'Montserrat', sans-serif;
-    color: $black;
-  }
+  // General text behavior
+  font-family: 'Montserrat', sans-serif;
+  color: $black;
 }
 
 h1,
@@ -42,6 +43,10 @@ a {
   &:visited {
     color: darken($nyupurple, 20%);
     text-decoration: none;
+
+    &:hover {
+      color: lighten($nyupurple, 20%);
+    }
   }
 }
 
@@ -86,6 +91,16 @@ a {
 
       li {
         margin: 10px 20% 10px 0;
+
+        a:visited {
+          color: $nyupurple;
+          text-decoration: none;
+          transition: color 0.5s;
+
+          &:hover {
+            color: lighten($nyupurple, 20%);
+          }
+        }
       }
     }
   }
@@ -93,12 +108,14 @@ a {
 
 body {
   .container {
+    display: table;
     margin: 0;
     padding: 0;
     position: absolute;
     top: 0;
     left: 0;
     height: 100%;
+    background-color: $nyupurple;
 
     @media screen and (max-width: $screen-xs-max) {
       width: calc(100% - #{$nav_xs_width});
@@ -114,38 +131,12 @@ body {
   }
 }
 
-// 3. Index header
-.header {
-  position: relative;
-  width: 100%;
-  height: 100%;
-
-  .header-text {
-    position: absolute;
-    top: 60%;
-    left: 10%;
-    transform: translateY(-50%);
-    width: 40%;
-
-    h1 {
-      margin: 0;
-      font-size: 64pt;
-      text-shadow: -5pt 5pt 0 rgba($black, 0.25);
-    }
-  }
-
-  .header-cat-container {
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    overflow: hidden;
-    width: 500px;
-    height: 630px;
-
-    .cat-svg {
-      width: 180%;
-      height: 180%;
-      fill: $white;
-    }
-  }
+.row {
+  margin: 0; // Override bootstrap margin rules
 }
+
+// 3. Index header
+@import 'header';
+
+// 4. Posts
+@import 'posts';

@@ -17,13 +17,17 @@
 
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,600" rel="stylesheet">
     <link rel="stylesheet" href="{{ theme_url }}/style.min.css" />
+
+    {% if is_front_page %}
+      <script src="http://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+    {% endif %}
   </head>
 
   <body>
     <div class="container">
       {# Landing page header #}
       {% if is_front_page %}
-        <header class="header">
+        <header class="header row">
           <div class="header-text">
             <h1>NYU society of physics students</h1>
           </div>
@@ -39,17 +43,8 @@
         </header>
       {% endif %}
 
-      <section class="content">
-        {% if is_front_page %}
-        {# Landing page content #}
-          {% for page in paged_posts %}
-
-          {% endfor %}
-
-        {% else %}
-        {# Single page content #}
-
-        {% endif %}
+      <section class="content row">
+        {{ include('posts.twig') }}
       </section>
     </div>
 
@@ -62,5 +57,19 @@
         </ul>
       </div>
     </nav>
+
+    {% if is_front_page %}
+      <script>
+        $(document).on('scroll', function (e) {
+          if ($('body').scrollTop() > ($('.header').outerHeight() / 8)) {
+            $('#cat-svg').addClass('fadeout');
+          } else {
+            if ($('#cat-svg').hasClass('fadeout')) {
+              $('#cat-svg').removeClass('fadeout')
+            }
+          }
+        });
+      </script>
+    {% endif %}
   </body>
 </html>

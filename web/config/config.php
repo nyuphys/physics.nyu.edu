@@ -41,6 +41,8 @@ $config['twig_config'] = array(                              // Twig settings
 // $config['pages_order'] = 'asc';              // Order pages "asc" or "desc"
 // $config['content_dir'] = 'content-sample/';  // Content directory
 // $config['content_ext'] = '.md';              // File extension of content files to serve
+$config['pagination_sub_page'] = true;
+$config['pagination_page_indicator'] = "posts";
 
 /*
  * TIMEZONE
