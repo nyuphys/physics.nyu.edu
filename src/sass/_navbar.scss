@@ -1,0 +1,122 @@
+@import 'globals';
+
+.nav {
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100%;
+  z-index: 999;
+
+  @include mq('xs', max) {
+    @include transition(width 0.4s ease, background-color 0.4s ease-in);
+    background-color: transparentize($white, 1);
+    width: $nav_xs_width;
+
+    .links-wrapper {
+      @include transition(opacity 0.6s 0.3s);
+      visibility: hidden;
+      opacity: 0;
+    }
+
+    .menu-control {
+      padding: {
+        top: 20px;
+        bottom: 20px;
+      }
+
+      background-color: transparentize($black, .8);
+      text-align: center;
+
+      a {
+        color: lighten($nyupurple, 20%);
+
+        &:hover {
+          color: lighten($nyupurple, 20%);
+        }
+
+        &:visited {
+          color: lighten($nyupurple, 20%);
+        }
+      }
+    }
+  }
+
+  @include mq('sm') {
+    width: $nav_sm_width;
+    background-color: $white;
+
+    .menu-control {
+      display: none;
+    }
+  }
+
+  @include mq('md') {
+    width: $nav_md_width;
+    background-color: $white;
+
+    .menu-control {
+      display: none;
+    }
+  }
+
+  .links-wrapper {
+    margin: 0 auto;
+    position: relative;
+    width: 100%;
+    height: 100%;
+
+    .links {
+      margin: 0 auto;
+      padding: 0;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 100%;
+      list-style: none;
+      text-align: right;
+
+      li {
+        margin: 10px 20% 10px 0;
+
+        a:visited {
+          color: $nyupurple;
+          text-decoration: none;
+          transition: color 0.5s;
+
+          &:hover {
+            color: lighten($nyupurple, 20%);
+          }
+        }
+      }
+    }
+  }
+}
+
+.nav.active {
+  @include mq('xs', max) {
+    background-color: $white;
+    width: $nav_sm_width;
+    box-shadow: -10px 0px 0px opacify($dropshadow, 0.5);
+
+    .links-wrapper {
+      visibility: visible;
+      opacity: 1;
+    }
+
+    .menu-control {
+      background-color: rgba(0,0,0,0);
+
+      a {
+        color: darken($nyupurple, 20%);
+
+        &:hover {
+          color: darken($nyupurple, 20%);
+        }
+
+        &:visited {
+          color: darken($nyupurple, 20%);
+        }
+      }
+    }
+  }
+}

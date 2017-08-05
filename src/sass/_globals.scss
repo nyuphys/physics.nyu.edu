@@ -1,9 +1,38 @@
+// MIXINS
+@mixin transition($args...) {
+  -webkit-transition: $args;
+  -moz-transition: $args;
+  -ms-transition: $args;
+  -o-transition: $args;
+  transition: $args;
+}
+
+$breakpoints: (
+  "xs": 768px, // Only use 'max' for this
+  "sm": 768px,
+  "md": 992px,
+  "lg": 1200px
+);
+
+@mixin mq($width, $type: min) {
+  @if map_has_key($breakpoints, $width) {
+    $width: map_get($breakpoints, $width);
+
+    @if $type == max {
+      $width: $width - 1;
+    }
+
+    @media only screen and (#{$type}-width: $width) {
+      @content;
+    }
+  }
+}
+
+// VARIABLES
+//
 // 0. Bootstrap references
-$screen-xs-max: 768px;
 $screen-sm-min: 768px;
-$screen-sm-max: 992px;
 $screen-md-min: 992px;
-$screen-md-max: 1200px;
 $screen-lg-min: 1200px;
 
 // 1. Colors
@@ -15,10 +44,11 @@ $seafoamdk: #93A39A;
 $tan: #F2D8A9;
 
 // 2. Dimensions
-$nav_xs_width: 40px;
+$nav_xs_width: 80px;
 $nav_sm_width: 150px;
 $nav_md_width: 230px;
 
 // 3. Shadow variants
 $dropshadow: rgba($black, 0.25);
+$violetshadow: transparentize(darken($nyupurple, 10%), .75);
 $hovershadow: rgba($white, 0.1);

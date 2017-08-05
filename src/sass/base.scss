@@ -16,6 +16,13 @@ body {
   // General text behavior
   font-family: 'Montserrat', sans-serif;
   color: $black;
+
+  @include mq('xs', max) {
+    overflow: {
+      x: hidden;
+      y: auto;
+    }
+  }
 }
 
 h1,
@@ -50,60 +57,7 @@ a {
 }
 
 // 2. General layout
-.nav {
-  position: fixed;
-  top: 0;
-  right: 0;
-  height: 100%;
-  z-index: 999;
-
-  @media screen and (max-width: $screen-xs-max) {
-    width: $nav_xs_width;
-    background-color: $white;
-  }
-
-  @media screen and (min-width: $screen-sm-min) and (max-width: $screen-sm-max) {
-    width: $nav_sm_width;
-    background-color: $white;
-  }
-
-  @media screen and (min-width: $screen-md-min) {
-    width: $nav_md_width;
-    background-color: $white;
-  }
-
-  .links-wrapper {
-    margin: 0 auto;
-    position: relative;
-    width: 100%;
-    height: 100%;
-
-    .links {
-      margin: 0 auto;
-      padding: 0;
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 100%;
-      list-style: none;
-      text-align: right;
-
-      li {
-        margin: 10px 20% 10px 0;
-
-        a:visited {
-          color: $nyupurple;
-          text-decoration: none;
-          transition: color 0.5s;
-
-          &:hover {
-            color: lighten($nyupurple, 20%);
-          }
-        }
-      }
-    }
-  }
-}
+@import 'navbar';
 
 body {
   .container {
@@ -117,15 +71,15 @@ body {
     background-color: $nyupurple;
     z-index: -10;
 
-    @media screen and (max-width: $screen-xs-max) {
-      width: calc(100% - #{$nav_xs_width});
+    @include mq('xs', max) {
+      width: 100%;
     }
 
-    @media screen and (min-width: $screen-sm-min) and (max-width: $screen-sm-max) {
+    @include mq('sm') {
       width: calc(100% - #{$nav_sm_width});
     }
 
-    @media screen and (min-width: $screen-md-min) {
+    @include mq('md') {
       width: calc(100% - #{$nav_md_width});
     }
   }

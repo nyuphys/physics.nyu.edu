@@ -17,6 +17,7 @@
 
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,600" rel="stylesheet">
     <link rel="stylesheet" href="{{ theme_url }}/style.min.css" />
+    <link rel="shortcut icon" href="{{ base_url }}/assets/favicon.png" />
 
     {% if is_front_page %}
       <script src="http://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
@@ -55,34 +56,28 @@
         {{ include('posts.twig') }}
       </section>
 
-      <footer class="footer row">
-        <div class="footer-container col-md-8 col-md-offset-2">
-          
-        </div>
-      </footer>
+      {{ include('footer.twig') }}
     </div>
 
-    <nav class="nav">
-      <div class="links-wrapper">
-        <ul class="links">
-          <li><a href="#">about</a></li>
-          <li><a href="#">contact</a></li>
-          <li><a href="#">department</a></li>
-        </ul>
-      </div>
-    </nav>
+    {{ include('navbar.twig') }}
 
     {% if is_front_page %}
-      <script>
-        $(document).on('scroll', function (e) {
-          if ($('body').scrollTop() > ($('.header').outerHeight() / 8)) {
+      <script type="text/javascript">
+        function pageTick() {
+          var off = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+
+          if (off > ($('.header').outerHeight() / 8)) {
             $('#cat-svg').addClass('fadeout');
           } else {
             if ($('#cat-svg').hasClass('fadeout')) {
               $('#cat-svg').removeClass('fadeout');
             }
           }
-        });
+        }
+
+        $(window).on('scroll', function (e) {
+          pageTick();
+        }); 
       </script>
     {% endif %}
   </body>

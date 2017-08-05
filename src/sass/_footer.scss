@@ -1,7 +1,60 @@
 @import 'globals';
 
 .footer {
+  position: relative;
   margin-top: 100px;
-  min-height: 200px;
+  min-height: 350px;
   background-color: $black;
+  color: $tan; // Maximum contrast
+
+  .footer-container {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    padding-top: 40px;
+    padding-bottom: 40px;
+
+    // General resets for the footer
+    h1, h2, h3 {
+      color: $white;
+    }
+
+    h1 {
+      font-size: 16pt;
+    }
+
+    h2 {
+      font-size: 14pt;
+    }
+
+    h3 {
+      font-size: 12pt;
+    }
+
+    a, p, li {
+      font-size: 9pt;
+    }
+
+    a {
+      color: darken($tan, 20%);
+
+      &:hover {
+        color: lighten($tan, 10%);
+      }
+    }
+
+    ul {
+      list-style: none;
+      padding-left: 20px;
+    }
+
+    .footer-right {
+      text-align: center;
+      transform: translateY(25%);
+
+      img {
+        max-width: 130px;
+      }
+    }
+  }
 }

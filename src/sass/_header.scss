@@ -13,10 +13,14 @@
     width: 40%;
 
     h1 {
+      @include transition(0.5s text-shadow);
       margin: 0;
       font-size: 64pt;
       text-shadow: -5pt 5pt 0 $dropshadow;
-      transition: 0.5s text-shadow;
+
+      @include mq('xs', max) {
+        font-size: 56pt;
+      }
 
       &:hover {
         text-shadow: -5pt 5pt 0 $hovershadow;
@@ -33,24 +37,32 @@
     height: 630px;
     z-index: -1;
 
-    @media screen and (max-width: $screen-xs-max) {
-      right: $nav_xs_width;
+    @include mq('xs', max) {
+      right: 0px;
+      bottom: -25%;
+      right: -25%;
     }
 
-    @media screen and (min-width: $screen-sm-min) and (max-width: $screen-sm-max) {
+    @include mq('sm') {
       right: $nav_sm_width;
     }
 
-    @media screen and (min-width: $screen-md-min) {
+    @include mq('md') {
       right: $nav_md_width;
     }
 
     .cat-svg {
+      @include transition(0.5s opacity ease-out);
       width: 180%;
       height: 180%;
       fill: $white;
       opacity: 1;
-      transition: 0.5s opacity ease-out;
+
+      @include mq('xs', max) {
+        width: 130%;
+        height: 130%;
+        opacity: 0.25;
+      }
     }
 
     .cat-svg.fadeout {
