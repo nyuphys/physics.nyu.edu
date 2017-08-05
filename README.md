@@ -13,9 +13,10 @@ Firstly, install the `gulp` command line interface if you don't already have it 
 npm i -g gulp-cli
 ```
 
-Then, `cd` to the project directory and install the project files with
+Then, `cd` to the project directory and install & build the project files with
 ```
 npm i .
+gulp
 ```
 This will set up the project and build it for the first time. While working on the project, it would be handy to use `gulp watch`. This will build the project once any files are saved in the project `src` directory.
 
