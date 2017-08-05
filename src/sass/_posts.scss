@@ -1,28 +1,75 @@
 @import 'globals';
 
 $post-margin: 20px;
+$header-margin: 0.5em;
+$insert-margin: 10pt;
 
 .post {
-  margin-top: $post-margin;
-  margin-bottom: $post-margin;
+  margin: {
+    top: $post-margin;
+    bottom: $post-margin;
+  }
+
   background-color: $white;
   box-shadow: -15px 15px 0 $dropshadow;
 
   .post-content {
     padding: 10px;
 
+    // General style
     h1 {
-      margin-bottom: 1em;
-      color: $nyupurple;
+      margin-bottom: $header-margin;
+      color: darken($seafoamdk, 30%);
     }
 
     h2 {
-      margin-bottom: 0.5em;
+      margin-bottom: $header-margin;
       color: $seafoamdk;
+      font-size: 1.5em;
+
     }
 
     p {
-      font-size: 12pt;
+      font-size: 10pt;
+    }
+
+    img {
+      display: block;
+      margin: $insert-margin auto;
+      padding: 10px;
+      max-width: 65%;
+    }
+
+    // YouTube embeds
+    .aspect-ratio {
+      margin: $insert-margin auto;
+      position: relative;
+      width: 65%;
+      height: 0;
+      padding-bottom: 51%;
+
+      iframe {
+        display: block;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+      }
+    }
+
+    // Metadata
+    .post-data {
+      .post-title {
+        font-size: 2.5em;
+        margin-bottom: 0.5em;
+        color: $nyupurple;
+        float: left;
+      }
+
+      .post-date {
+        margin: $post-margin auto;
+        float: right;
+        color: lighten($black, 10%);
+      }
     }
   }
 }

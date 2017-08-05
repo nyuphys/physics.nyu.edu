@@ -28,6 +28,22 @@ $breakpoints: (
   }
 }
 
+// Static coloring of links; handle should be a, but in case for classing, I'll leave it open
+@mixin linkstatic($handle: a) {
+
+  #{$handle} {
+    @content;
+
+    &:hover {
+      @content;
+    }
+
+    &:visited {
+      @content;
+    }
+  }
+}
+
 // VARIABLES
 //
 // 0. Bootstrap references

@@ -13,7 +13,7 @@ Firstly, install the `gulp` command line interface if you don't already have it 
 npm i -g gulp-cli
 ```
 
-Then, install the project files with
+Then, `cd` to the project directory and install the project files with
 ```
 npm i .
 ```

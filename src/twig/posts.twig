@@ -4,6 +4,11 @@
   {% for post in paged_pages|sort_by('time')|reverse %}
     <article class="post col-md-8 col-md-offset-2 col-xs-12">
       <div class="post-content">
+        <div class="post-data clearfix">
+          <h1 class="post-title">{{ post.title }}</h1>
+          <span class="post-date">{{ post.date_formatted }}</span>
+        </div>
+
         {{ post.id|content }}
       </div>
     </article>

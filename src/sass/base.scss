@@ -46,6 +46,10 @@ a {
     color: lighten($nyupurple, 20%);
   }
 
+  &:active {
+    text-decoration: none;
+  }
+
   &:visited {
     color: darken($nyupurple, 20%);
     text-decoration: none;

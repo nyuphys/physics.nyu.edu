@@ -5,9 +5,9 @@
 
   <div class="links-wrapper">
     <ul class="links">
-      <li><a href="#"><p>about</p></a></li>
-      <li><a href="#"><p>contact</p></a></li>
-      <li><a href="#"><p>department</p></a></li>
+      <li><a href="#">about</a></li>
+      <li><a href="#" id="nav-contact">contact</a></li>
+      <li><a href="http://as.nyu.edu/physics.html" target="_blank">department</a></li>
     </ul>
   </div>
 </nav>
@@ -30,5 +30,12 @@
         $('.nav').removeClass('active');
       }
     }
+  });
+
+  // Contact scroll
+  $('#nav-contact').click(function (e) {
+    $('html, body').animate({
+      scrollTop: $('#footer').offset().top
+    }, 1000);
   });
 </script>
