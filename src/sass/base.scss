@@ -25,34 +25,29 @@ body {
   }
 }
 
-h1,
-h2,
-h3 {
+h1, h2, h3 {
   font-weight: 600;
   color: $white;
 }
 
-a, p {
+a, p, li {
   font-weight: 300;
 }
 
 a {
   color: $nyupurple;
-  text-decoration: none;
   transition: color 0.5s;
 
-  &:hover {
+  &:link, &:hover, &:active, &:visited, &:focus {
     text-decoration: none;
-    color: lighten($nyupurple, 20%);
   }
 
-  &:active {
-    text-decoration: none;
+  &:hover {
+    color: lighten($nyupurple, 20%);
   }
 
   &:visited {
     color: darken($nyupurple, 20%);
-    text-decoration: none;
 
     &:hover {
       color: lighten($nyupurple, 20%);

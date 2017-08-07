@@ -3,6 +3,7 @@
 $post-margin: 20px;
 $header-margin: 0.5em;
 $insert-margin: 10pt;
+$insert-width: 65%;
 
 .post {
   margin: {
@@ -37,14 +38,14 @@ $insert-margin: 10pt;
       display: block;
       margin: $insert-margin auto;
       padding: 10px;
-      max-width: 65%;
+      max-width: $insert-width;
     }
 
     // YouTube embeds
     .aspect-ratio {
       margin: $insert-margin auto;
       position: relative;
-      width: 65%;
+      width: $insert-width;
       height: 0;
       padding-bottom: 51%;
 
@@ -68,7 +69,8 @@ $insert-margin: 10pt;
       .post-date {
         margin: $post-margin auto;
         float: right;
-        color: lighten($black, 10%);
+        color: lighten($black, 15%);
+        font-weight: 300;
       }
     }
   }

@@ -11,31 +11,3 @@
     </ul>
   </div>
 </nav>
-
-<script type="text/javascript">
-  // Navbar control logic
-  $('#menu-control').click(function (e) {
-    if (!$('.nav').hasClass('active')) {
-      $('.nav').addClass('active');
-    } else {
-      $('.nav').removeClass('active');
-    }
-
-    return false;
-  });
-
-  $('body').click(function (e) {
-    if (e.target.id !== 'nav' || !$(e.target).parents('#nav').size()) {
-      if ($('.nav').hasClass('active')) {
-        $('.nav').removeClass('active');
-      }
-    }
-  });
-
-  // Contact scroll
-  $('#nav-contact').click(function (e) {
-    $('html, body').animate({
-      scrollTop: $('#footer').offset().top
-    }, 1000);
-  });
-</script>
