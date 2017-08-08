@@ -23,6 +23,8 @@
         color: lighten($nyupurple, 20%);
       }
 
+      @include transition(padding 0.4s ease);
+
       padding: {
         top: 20px;
         bottom: 20px;
@@ -79,6 +81,21 @@
           }
         }
       }
+    }
+  }
+}
+
+.nav.shrink {
+  @include mq('xs', max) {
+    top: 0;
+    right: 0;
+    width: $nav_xs_width / 2;
+  }
+
+  .menu-control {
+    padding: {
+      top: 8px;
+      bottom: 8px;
     }
   }
 }

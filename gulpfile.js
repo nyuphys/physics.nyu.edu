@@ -33,7 +33,6 @@ gulp.task('twig', () => {
  * Move all image assets (JPG, PNG, and SVG) into the theme directory
  *
  */
-gulp
 gulp.task('img-assets', () => {
   return gulp.src(['assets/*.jpg', 'assets/*.png', 'assets/*.svg'])
     .pipe(gulp.dest(`${THEME_DIR}/img`));

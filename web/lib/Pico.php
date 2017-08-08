@@ -330,7 +330,7 @@ class Pico
 
         $this->content = $this->prepareFileContent($this->rawContent, $this->meta);
         $this->triggerEvent('onContentPrepared', array(&$this->content));
-
+        
         $this->content = $this->parseFileContent($this->content);
         $this->triggerEvent('onContentParsed', array(&$this->content));
 
@@ -1409,3 +1409,4 @@ class Pico
         }
     }
 }
+?>

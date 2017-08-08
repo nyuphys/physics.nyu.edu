@@ -1,9 +1,10 @@
 @import 'globals';
 
-$post-margin: 20px;
+$post-margin: 15px;
 $header-margin: 0.5em;
 $insert-margin: 10pt;
 $insert-width: 65%;
+$xs-yt-width: 100%;
 
 .post {
   margin: {
@@ -45,9 +46,16 @@ $insert-width: 65%;
     .aspect-ratio {
       margin: $insert-margin auto;
       position: relative;
-      width: $insert-width;
-      height: 0;
       padding-bottom: 51%;
+      height: 0;
+
+      @include mq('xs', max) {
+        width: $xs-yt-width;
+      }
+
+      @include mq('sm') {
+        width: $insert-width;
+      }
 
       iframe {
         display: block;
@@ -60,17 +68,27 @@ $insert-width: 65%;
     // Metadata
     .post-data {
       .post-title {
+        margin: $post-margin auto;
+        padding: 0;
         font-size: 2.5em;
-        margin-bottom: 0.5em;
         color: $nyupurple;
-        float: left;
+
+        @include mq('xs', max) {
+          margin-bottom: 5px;
+        }
       }
 
       .post-date {
         margin: $post-margin auto;
-        float: right;
+        padding: 0;
         color: lighten($black, 15%);
         font-weight: 300;
+        text-align: right;
+
+        @include mq('xs', max) {
+          margin-top: 0;
+          text-align: left;
+        }
       }
     }
   }
