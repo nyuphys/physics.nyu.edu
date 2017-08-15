@@ -1,6 +1,7 @@
 @import 'globals';
 
-$post-margin: 15px;
+$post-margin: 20px;
+$data-margin: 15px;
 $header-margin: 0.5em;
 $insert-margin: 10pt;
 $insert-width: 65%;
@@ -68,7 +69,7 @@ $xs-yt-width: 100%;
     // Metadata
     .post-data {
       .post-title {
-        margin: $post-margin auto;
+        margin: $data-margin auto;
         padding: 0;
         font-size: 2.5em;
         color: $nyupurple;
@@ -79,7 +80,7 @@ $xs-yt-width: 100%;
       }
 
       .post-date {
-        margin: $post-margin auto;
+        margin: $data-margin auto;
         padding: 0;
         color: lighten($black, 15%);
         font-weight: 300;

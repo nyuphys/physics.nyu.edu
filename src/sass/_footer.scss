@@ -53,7 +53,30 @@
       transform: translateY(25%);
 
       img {
-        max-width: 130px;
+        display: block;
+        margin: 5px auto;
+        max-width: 100%;
+        height: auto;
+      }
+
+      @media (min-resolution: 1dppx) {
+        .catbug-1 {
+          display: inline;
+        }
+
+        .catbug-2 {
+          display: none;
+        }
+      }
+
+      @media (min-resolution: 2dppx) {
+        .catbug-1 {
+          display: none;
+        }
+
+        .catbug-2 {
+          display: inline;
+        }
       }
     }
   }

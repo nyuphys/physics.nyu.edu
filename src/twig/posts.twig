@@ -2,7 +2,7 @@
 
   {# Landing page content #}
   {% for post in paged_pages|sort_by('time')|reverse %}
-    <article class="post col-md-8 col-md-offset-2 col-xs-12">
+    <article class="post col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2 col-xs-12">
       <div class="post-content">
         <div class="post-data clearfix row">
           <h1 class="post-title col-xs-12 col-sm-10">{{ post.title }}</h1>
