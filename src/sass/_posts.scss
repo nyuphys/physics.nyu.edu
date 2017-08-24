@@ -94,3 +94,49 @@ $xs-yt-width: 100%;
     }
   }
 }
+
+.posts-header-container {
+  margin: {
+    top: $post-margin;
+    bottom: $post-margin;
+  }
+
+  .posts-header {
+    font-size: 36pt;
+    text-shadow: -5pt 5pt 0 $dropshadow;
+  }
+}
+
+.pagination-container {
+  margin: {
+    top: $post-margin;
+    bottom: $post-margin;
+  }
+
+  z-index: 10;
+  text-align: center;
+
+  .page-button {
+    @include boxshadow(10px);
+    @include notransition;
+
+    display: inline-block;
+    padding: 10px;
+    background-color: $white;
+
+    &:hover {
+      @include boxshadow(5px, transparentize($white, 0.5));
+
+      color: $white;
+      background-color: darken($nyupurple, 15%);
+    }
+  }
+
+  .next {
+    margin-right: 8px;
+  }
+
+  .previous {
+    margin-left: 8px;
+  }
+}

@@ -88,6 +88,10 @@ body {
   margin: 0; // Override bootstrap margin rules
 }
 
+.content {
+  min-height: calc(100vh - (#{$footer-height} + #{$footer-margin-top})); // Prevent white boxing
+}
+
 // 3. Index header
 @import 'header';
 

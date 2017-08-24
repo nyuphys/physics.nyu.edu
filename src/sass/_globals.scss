@@ -44,6 +44,23 @@ $breakpoints: (
   }
 }
 
+// Unified left-bottom drop shadows
+@mixin textshadow($size: 5pt, $color: $dropshadow) {
+  text-shadow: -#{$size} #{$size} 0 #{$color};
+}
+
+@mixin boxshadow($size: 15px, $color: $dropshadow) {
+  box-shadow: -#{$size} #{$size} 0 #{$color};
+}
+
+// Link coloring with no transition
+@mixin notransition {
+  -moz-transition: none;
+  -webkit-transition: none;
+  -o-transition: all 0 ease-in;
+  transition: none;
+}
+
 // VARIABLES
 //
 // 0. Bootstrap references
@@ -63,6 +80,9 @@ $tan: #F2D8A9;
 $nav_xs_width: 80px;
 $nav_sm_width: 150px;
 $nav_md_width: 230px;
+
+$footer-height: 350px;
+$footer-margin-top: 100px;
 
 // 3. Shadow variants
 $dropshadow: rgba($black, 0.25);

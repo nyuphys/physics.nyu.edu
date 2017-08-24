@@ -14,7 +14,36 @@
     </article>
   {% endfor %}
 
+  <div class="pagination-container col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2 col-xs-12">
+    {% if page_number > 1 %}<a href="{{ base_url }}/?{{ page_indicator }}/{{ page_number - 1}}" class="page-button previous">Previous</a>{% endif %}
+    {% if page_number < total_pages %}<a href="{{ base_url }}/?{{ page_indicator }}/{{ page_number + 1}}" class="page-button next">Next</a>{% endif %}
+  </div>
+
+{% elseif current_page.id == 'posts/index' %}
+  {# Post listing pages #}
+  <div class="posts-header-container col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2 col-xs-12">
+    <h1 class="posts-header">blog</h1>
+  </div>
+
+  {% for post in paged_pages|sort_by('time')|reverse %}
+    <article class="post col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2 col-xs-12">
+      <div class="post-content">
+        <div class="post-data clearfix row">
+          <h1 class="post-title col-xs-12 col-sm-10">{{ post.title }}</h1>
+          <span class="post-date col-xs-12 col-sm-2">{{ post.date_formatted }}</span>
+        </div>
+
+        {{ post.id|content }}
+      </div>
+    </article>
+  {% endfor %}
+
+  <div class="pagination-container col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2 col-xs-12">
+    {% if page_number > 1 %}<a href="{{ base_url }}/?{{ page_indicator }}/{{ page_number - 1}}" class="page-button previous">Previous</a>{% endif %}
+    {% if page_number < total_pages %}<a href="{{ base_url }}/?{{ page_indicator }}/{{ page_number + 1}}" class="page-button next">Next</a>{% endif %}
+  </div>
+
 {% else %}
-  {# Single page content #}
+  {# Single post page #}
 
 {% endif %}
