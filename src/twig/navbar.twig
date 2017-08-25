@@ -6,7 +6,11 @@
   <div class="links-wrapper">
     <ul class="links">
       {% if not is_front_page %}<li><a href="{{ base_url }}">home</a></li>{% endif %}
-      <li><a href="#">about</a></li>
+      {% if not is_front_page %}
+        <li><a href="{{ base_url }}#about" id="nav-about">about</a></li>
+      {% else %}
+        <li><a href="#about" id="nav-about">about</a></li>
+      {% endif %}
       <li><a href="#" id="nav-contact">contact</a></li>
       <li><a href="http://as.nyu.edu/physics.html" target="_blank">department</a></li>
     </ul>

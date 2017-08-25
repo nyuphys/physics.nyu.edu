@@ -7,6 +7,11 @@ $insert-margin: 10pt;
 $insert-width: 65%;
 $xs-yt-width: 100%;
 
+// Content override for post buffer
+.content article:first-child {
+  margin-top: 3 * $post-margin;
+}
+
 .post {
   margin: {
     top: $post-margin;
@@ -110,7 +115,6 @@ $xs-yt-width: 100%;
 .pagination-container {
   margin: {
     top: $post-margin;
-    bottom: $post-margin;
   }
 
   z-index: 10;

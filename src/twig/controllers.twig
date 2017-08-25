@@ -65,5 +65,13 @@
         scrollTop: $('#footer').offset().top
       }, 1000);
     });
+
+    {% if is_front_page %}
+    $('#nav-about').click(function (e) {
+      $('html, body').animate({
+        scrollTop: $('#about').offset().top
+      }, 1000);
+    });
+    {% endif %}
   }(window, document, jQuery));
 </script>

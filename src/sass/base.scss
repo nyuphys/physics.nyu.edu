@@ -92,8 +92,9 @@ body {
   min-height: calc(100vh - (#{$footer-height} + #{$footer-margin-top})); // Prevent white boxing
 }
 
-// 3. Index header
+// 3. Index header and about section
 @import 'header';
+@import 'about';
 
 // 4. Posts
 @import 'posts';

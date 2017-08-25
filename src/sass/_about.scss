@@ -1,0 +1,27 @@
+@import 'globals';
+
+section.about {
+  position: relative;
+  height: 100vh;
+  background-color: lighten($seafoamlt, 20%);
+
+  .about-container {
+    position: absolute;
+    top: 50%;
+    height: 100%;
+    transform: translateY(-25%);
+    text-align: center;
+
+    h1 {
+      color: $nyupurple;
+      font: {
+        size: 40pt;
+        weight: 300;
+      }
+
+      @include mq('xs', max) {
+        font-size: 30pt;
+      }
+    }
+  }
+}
