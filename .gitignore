@@ -16,3 +16,6 @@ web/themes/sps
 
 # SFTP config for security reasons
 *.ftpconfig
+
+# Admin config for security reasons
+web/plugins/pico_admin/admin_config.php

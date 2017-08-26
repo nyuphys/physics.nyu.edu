@@ -1,9 +1,15 @@
 @import 'globals';
 
+$sky-blue: #55A3F7;
+$night-navy: #001F3F;
+$cloudy-grey: #AAAAAA;
+$pale-seafoam: lighten($seafoamlt, 20%);
+
+$sky-text: #0D0C31;
+
 section.about {
   position: relative;
   height: 100vh;
-  background-color: lighten($seafoamlt, 20%);
 
   .about-container {
     position: absolute;
@@ -13,15 +19,38 @@ section.about {
     text-align: center;
 
     h1 {
-      color: $nyupurple;
       font: {
         size: 40pt;
         weight: 300;
       }
 
       @include mq('xs', max) {
-        font-size: 30pt;
+        font-size: 24pt;
       }
+    }
+  }
+}
+
+section.about.clear-skies {
+  background-color: $sky-blue;
+
+  .about-container {
+
+    h1 {
+      @include linkdynamic($sky-text);
+      color: $sky-text;
+    }
+  }
+}
+
+section.about.night {
+  background-color: $night-navy;
+
+  .about-container {
+
+    h1 {
+      @include linkdynamicinv($seafoamlt);
+      color: $seafoamlt;
     }
   }
 }

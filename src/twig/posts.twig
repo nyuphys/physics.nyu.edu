@@ -15,8 +15,8 @@
   {% endfor %}
 
   <div class="pagination-container col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2 col-xs-12">
-    {% if page_number > 1 %}<a href="{{ base_url }}/?{{ page_indicator }}/{{ page_number - 1}}" class="page-button previous">Previous</a>{% endif %}
-    {% if page_number < total_pages %}<a href="{{ base_url }}/?{{ page_indicator }}/{{ page_number + 1}}" class="page-button next">Next</a>{% endif %}
+    {% if page_number > 1 %}<a href="{{ base_url }}/{{ page_indicator }}/{{ page_number - 1}}" class="page-button previous">Previous</a>{% endif %}
+    {% if page_number < total_pages %}<a href="{{ base_url }}/{{ page_indicator }}/{{ page_number + 1}}" class="page-button next">Next</a>{% endif %}
   </div>
 
 {% elseif current_page.id == 'posts/index' %}
@@ -39,8 +39,8 @@
   {% endfor %}
 
   <div class="pagination-container col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2 col-xs-12">
-    {% if page_number > 1 %}<a href="{{ base_url }}/?{{ page_indicator }}/{{ page_number - 1}}" class="page-button previous">Previous</a>{% endif %}
-    {% if page_number < total_pages %}<a href="{{ base_url }}/?{{ page_indicator }}/{{ page_number + 1}}" class="page-button next">Next</a>{% endif %}
+    {% if page_number > 1 %}<a href="{{ base_url }}/{{ page_indicator }}/{{ page_number - 1}}" class="page-button previous">Previous</a>{% endif %}
+    {% if page_number < total_pages %}<a href="{{ base_url }}/{{ page_indicator }}/{{ page_number + 1}}" class="page-button next">Next</a>{% endif %}
   </div>
 
 {% else %}

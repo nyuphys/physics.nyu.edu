@@ -1,6 +1,14 @@
 <script type="text/javascript">
   ;(function(win, doc, $) {
-    var old_scroll = 0;
+    var old_scroll    = 0,
+        weatherScheme = ['clear-skies', 'night'];
+
+    function randIntInclusive(min, max) {
+      min = Math.ceil(min);
+      max = Math.floor(max);
+
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
 
     // --- HEADER ---
     {% if is_front_page %}
@@ -71,6 +79,12 @@
       $('html, body').animate({
         scrollTop: $('#about').offset().top
       }, 1000);
+    });
+
+    $(doc).ready(function (e) {
+      let index = randIntInclusive(0, weatherScheme.length - 1);
+
+      $('.about').addClass(weatherScheme[index]);
     });
     {% endif %}
   }(window, document, jQuery));

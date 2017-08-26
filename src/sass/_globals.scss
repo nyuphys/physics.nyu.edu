@@ -44,6 +44,52 @@ $breakpoints: (
   }
 }
 
+@mixin linkdynamic($color: $nyupurple) {
+  a {
+    color: $color;
+    transition: color 0.5s;
+
+    &:link, &:hover, &:active, &:visited, &:focus {
+      text-decoration: none;
+    }
+
+    &:hover {
+      color: lighten($color, 20%);
+    }
+
+    &:visited {
+      color: darken($color, 20%);
+
+      &:hover {
+        color: lighten($color, 20%);
+      }
+    }
+  }
+}
+
+@mixin linkdynamicinv($color: $nyupurple) {
+  a {
+    color: $color;
+    transition: color 0.5s;
+
+    &:link, &:hover, &:active, &:visited, &:focus {
+      text-decoration: none;
+    }
+
+    &:hover {
+      color: darken($color, 20%);
+    }
+
+    &:visited {
+      color: lighten($color, 20%);
+
+      &:hover {
+        color: darken($color, 20%);
+      }
+    }
+  }
+}
+
 // Unified left-bottom drop shadows
 @mixin textshadow($size: 5pt, $color: $dropshadow) {
   text-shadow: -#{$size} #{$size} 0 #{$color};
