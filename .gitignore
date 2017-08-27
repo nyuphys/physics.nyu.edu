@@ -18,4 +18,5 @@ web/themes/sps
 *.ftpconfig
 
 # Admin config for security reasons
-web/plugins/pico_admin/admin_config.php
+web/plugins/pico_edit/config.php
+web/config/options.conf

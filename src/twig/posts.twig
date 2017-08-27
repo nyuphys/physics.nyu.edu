@@ -22,7 +22,7 @@
 {% elseif current_page.id == 'posts/index' %}
   {# Post listing pages #}
   <div class="posts-header-container col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2 col-xs-12">
-    <h1 class="posts-header">blog</h1>
+    <h1 class="posts-header">{{ current_page.title }}</h1>
   </div>
 
   {% for post in paged_pages|sort_by('time')|reverse %}
