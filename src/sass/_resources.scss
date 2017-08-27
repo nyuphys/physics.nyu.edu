@@ -1,11 +1,38 @@
 @import 'globals';
 
+$border-color: darken($white, 40%);
+
 .resource {
   .post-content {
+    table {
+      width: 100%;
+
+      tr {
+        border-bottom: 1px solid $border-color;
+
+        &:last-child {
+          border-bottom: none;
+        }
+
+        td {
+          padding: 5px;
+          vertical-align: middle;
+
+          &:first-child {
+            text-align: left;
+          }
+
+          &:last-child {
+            text-align: right;
+          }
+        }
+      }
+    }
+
     ul {
       margin: 20px auto;
       padding: 0;
-      border: 1px solid darken($white, 40%);
+      border: 1px solid $border-color;
 
       li {
         padding: 10px;

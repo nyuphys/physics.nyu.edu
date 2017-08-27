@@ -8,24 +8,30 @@ $pale-seafoam: lighten($seafoamlt, 20%);
 $sky-text: #0D0C31;
 
 section.about {
-  position: relative;
   height: 100vh;
 
   .about-container {
-    position: absolute;
-    top: 50%;
-    height: 100%;
-    transform: translateY(-25%);
+    position: relative;
     text-align: center;
+    height: 100%;
 
-    h1 {
-      font: {
-        size: 40pt;
-        weight: 300;
-      }
+    .about-block {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
 
-      @include mq('xs', max) {
-        font-size: 24pt;
+      h1 {
+        display: inline-block;
+        vertical-align: middle;
+
+        font: {
+          size: 40pt;
+          weight: 300;
+        }
+
+        @include mq('xs', max) {
+          font-size: 24pt;
+        }
       }
     }
   }
