@@ -1,0 +1,24 @@
+@import 'globals';
+
+.resource {
+  .post-content {
+    ul {
+      margin: 20px auto;
+      padding: 0;
+      border: 1px solid darken($white, 40%);
+
+      li {
+        padding: 10px;
+        list-style: none;
+
+        &:nth-child(odd) {
+          background-color: darken($white, 5%);
+        }
+
+        &:nth-child(even) {
+          background-color: darken($white, 10%);
+        }
+      }
+    }
+  }
+}

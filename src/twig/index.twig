@@ -47,7 +47,11 @@
       {% endif %}
 
       <section class="content row">
+        {% if current_page.id == 'resources/index' %}
+        {{ include('resources.twig') }}
+        {% else %}
         {{ include('posts.twig') }}
+        {% endif %}
       </section>
 
       {{ include('footer.twig') }}
