@@ -93,7 +93,7 @@ $xs-yt-width: 100%;
       .post-date {
         margin: $data-margin auto;
         padding: 0;
-        color: lighten($black, 15%);
+        color: darken($seafoamdk, 10%);
         font-weight: 300;
         text-align: right;
 
@@ -111,6 +111,8 @@ $xs-yt-width: 100%;
 
   .post-data {
     .post-date {
+      min-width: 80px;
+      text-align: right;
       float: right;
     }
   }
