@@ -37,9 +37,9 @@ $config['twig_config'] = array(                              // Twig settings
  * CONTENT
  */
 $config['date_format'] = '%D';                // Set the PHP date format as described here: http://php.net/manual/en/function.strftime.php
-// $config['pages_order_by'] = 'alpha';       // Order pages by "alpha" or "date"
-$config['pages_order'] = 'desc';              // Order pages "asc" or "desc"
-$config['content_dir'] = 'content/';          // Content directory
+$config['pages_order_by'] = 'date';       // Order pages by "alpha" or "date"
+$config['pages_order']    = 'desc';              // Order pages "asc" or "desc"
+$config['content_dir']    = 'content/';          // Content directory
 // $config['content_ext'] = '.md';            // File extension of content files to serve
 
 /*
