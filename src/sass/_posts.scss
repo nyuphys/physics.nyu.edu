@@ -39,6 +39,7 @@ $xs-yt-width: 100%;
 
     p {
       font-size: 10pt;
+      text-align: justify;
     }
 
     img {
@@ -73,11 +74,16 @@ $xs-yt-width: 100%;
 
     // Metadata
     .post-data {
+      @include linkdynamic();
+
       .post-title {
         margin: $data-margin auto;
         padding: 0;
         font-size: 2.5em;
-        color: $nyupurple;
+
+        a {
+          font-weight: 600; // Override base format
+        }
 
         @include mq('xs', max) {
           margin-bottom: 5px;
@@ -96,6 +102,16 @@ $xs-yt-width: 100%;
           text-align: left;
         }
       }
+    }
+  }
+}
+
+// Styling specifically for posts on their own page
+.post.single {
+
+  .post-data {
+    .post-date {
+      float: right;
     }
   }
 }

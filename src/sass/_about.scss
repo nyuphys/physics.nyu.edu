@@ -43,7 +43,7 @@ section.about.clear-skies {
   .about-container {
 
     h1 {
-      @include linkdynamic($sky-text);
+      @include linkdynamicinv($sky-text);
       color: $sky-text;
     }
   }

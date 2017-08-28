@@ -46,7 +46,7 @@ $breakpoints: (
 
 @mixin linkdynamic($color: $nyupurple) {
   a {
-    color: $color;
+    color: $color !important;
     transition: color 0.5s;
 
     &:link, &:hover, &:active, &:visited, &:focus {
@@ -54,14 +54,14 @@ $breakpoints: (
     }
 
     &:hover {
-      color: lighten($color, 20%);
+      color: lighten($color, 10%) !important;
     }
 
     &:visited {
-      color: darken($color, 20%);
+      color: darken($color, 10%) !important;
 
       &:hover {
-        color: lighten($color, 20%);
+        color: lighten($color, 10%) !important;
       }
     }
   }
@@ -69,7 +69,7 @@ $breakpoints: (
 
 @mixin linkdynamicinv($color: $nyupurple) {
   a {
-    color: $color;
+    color: $color !important;
     transition: color 0.5s;
 
     &:link, &:hover, &:active, &:visited, &:focus {
@@ -77,14 +77,14 @@ $breakpoints: (
     }
 
     &:hover {
-      color: darken($color, 20%);
+      color: darken($color, 10%) !important;
     }
 
     &:visited {
-      color: lighten($color, 20%);
+      color: lighten($color, 10%) !important;
 
       &:hover {
-        color: darken($color, 20%);
+        color: darken($color, 10%) !important;
       }
     }
   }

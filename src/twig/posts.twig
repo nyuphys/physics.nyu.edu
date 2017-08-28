@@ -5,7 +5,7 @@
     <article class="post col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2 col-xs-12">
       <div class="post-content">
         <div class="post-data clearfix row">
-          <h1 class="post-title col-xs-12 col-sm-10">{{ post.title }}</h1>
+          <h1 class="post-title col-xs-12 col-sm-10"><a href="{{ post.url }}">{{ post.title }}</a></h1>
           <span class="post-date col-xs-12 col-sm-2">{{ post.date_formatted }}</span>
         </div>
 
@@ -20,6 +20,7 @@
   </div>
 
 {% elseif current_page.id == 'posts/index' %}
+
   {# Post listing pages #}
   <div class="posts-header-container col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2 col-xs-12">
     <h1 class="posts-header">{{ current_page.title }}</h1>
@@ -29,7 +30,7 @@
     <article class="post col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2 col-xs-12">
       <div class="post-content">
         <div class="post-data clearfix row">
-          <h1 class="post-title col-xs-12 col-sm-10">{{ post.title }}</h1>
+          <h1 class="post-title col-xs-12 col-sm-10"><a href="{{ post.url }}">{{ post.title }}</a></h1>
           <span class="post-date col-xs-12 col-sm-2">{{ post.date_formatted }}</span>
         </div>
 
@@ -44,6 +45,20 @@
   </div>
 
 {% else %}
+
   {# Single post page #}
+  <div class="posts-header-container col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2 col-xs-12">
+    <h1 class="posts-header">{{ current_page.title }}</h1>
+  </div>
+
+  <article class="post single col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2 col-xs-12">
+    <div class="post-content">
+      <div class="post-data">
+        <span class="post-date col-xs-12 col-sm-2">{{ current_page.date_formatted }}</span>
+      </div>
+
+      {{ content }}
+    </div>
+  </article>
 
 {% endif %}
