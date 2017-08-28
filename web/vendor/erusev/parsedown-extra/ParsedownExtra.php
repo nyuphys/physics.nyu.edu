@@ -462,11 +462,26 @@ class ParsedownExtra extends Parsedown
             }
         }
 
+        # REMOVE ALL SCRIPT TAGS -- Why the hell was this not already included?
+        $potentialThreats = $DOMDocument->getElementsByTagName('script');
+
+        if ($potentialThreats->length > 0) {
+          foreach ($potentialThreats as $threat) {
+            $DOMDocument->removeChild($threat);
+          }
+        }
+
+        # This is so hacky I feel sick
+        $errLevel = error_reporting();
+        error_reporting(E_ERROR | E_PARSE);
+
         # because we don't want for markup to get encoded
         $DOMDocument->documentElement->nodeValue = 'placeholder\x1A';
 
         $markup = $DOMDocument->saveHTML($DOMDocument->documentElement);
         $markup = str_replace('placeholder\x1A', $elementText, $markup);
+
+        error_reporting($errLevel);
 
         return $markup;
     }
