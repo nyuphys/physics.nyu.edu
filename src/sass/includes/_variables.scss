@@ -1,0 +1,25 @@
+// 0. Bootstrap references
+$screen-sm-min: 768px;
+$screen-md-min: 992px;
+$screen-lg-min: 1200px;
+
+// 1. Colors
+$black: #111111;
+$white: #EFEFEF;
+$nyupurple: #57068C;
+$seafoamlt: #A9BDB2;
+$seafoamdk: #93A39A;
+$tan: #F2D8A9;
+
+// 2. Dimensions
+$nav_xs_width: 80px;
+$nav_sm_width: 150px;
+$nav_md_width: 230px;
+
+$footer-height: 350px;
+$footer-margin-top: 100px;
+
+// 3. Shadow variants
+$dropshadow: rgba($black, 0.25);
+$violetshadow: transparentize(darken($nyupurple, 10%), .75);
+$hovershadow: rgba($white, 0.1);

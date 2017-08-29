@@ -1,0 +1,155 @@
+@import 'variables';
+
+@mixin transition($args...) {
+  -webkit-transition: $args;
+  -moz-transition: $args;
+  -ms-transition: $args;
+  -o-transition: $args;
+  transition: $args;
+}
+
+$breakpoints: (
+  "xs": 768px, // Only use 'max' for this
+  "sm": 768px,
+  "md": 992px,
+  "lg": 1200px
+);
+
+@mixin mq($width, $type: min) {
+  @if map_has_key($breakpoints, $width) {
+    $width: map_get($breakpoints, $width);
+
+    @if $type == max {
+      $width: $width - 1;
+    }
+
+    @media only screen and (#{$type}-width: $width) {
+      @content;
+    }
+  }
+}
+
+// Static coloring of links; handle should be a, but in case for classing, I'll leave it open
+@mixin linkstatic($handle: a) {
+
+  #{$handle} {
+    @content;
+
+    &:hover {
+      @content;
+    }
+
+    &:visited {
+      @content;
+    }
+  }
+}
+
+@mixin linkdynamic($color: $nyupurple, $hover: lighten($color, 10%)) {
+  a {
+    color: $color !important;
+    transition: color 0.5s;
+
+    &:link, &:hover, &:active, &:visited, &:focus {
+      text-decoration: none;
+    }
+
+    &:hover {
+      color: $hover !important;
+    }
+
+    &:visited {
+      color: darken($color, 10%) !important;
+
+      &:hover {
+        color: $hover !important;
+      }
+    }
+  }
+}
+
+@mixin linkdynamicinv($color: $nyupurple, $hover: darken($color, 10%)) {
+  a {
+    color: $color !important;
+    transition: color 0.5s;
+
+    &:link, &:hover, &:active, &:visited, &:focus {
+      text-decoration: none;
+    }
+
+    &:hover {
+      color: $hover !important;
+    }
+
+    &:visited {
+      color: lighten($color, 10%) !important;
+
+      &:hover {
+        color: $hover !important;
+      }
+    }
+  }
+}
+
+@mixin linkDynamicVisitStatic($color: $nyupurple, $hover: lighten($color, 10%)) {
+  a {
+    color: $color !important;
+    transition: color 0.5s;
+
+    &:link, &:hover, &:active, &:visited, &:focus {
+      text-decoration: none;
+    }
+
+    &:hover {
+      color: $hover !important;
+    }
+
+    &:visited {
+      color: $color !important;
+
+      &:hover {
+        color: $hover !important;
+      }
+    }
+  }
+}
+
+@mixin socialLink($color: $nyupurple, $hover: darken($color, 10%)) {
+  a {
+    color: $color !important;
+    transition: color 0.5s;
+
+    &:link, &:hover, &:active, &:visited, &:focus {
+      text-decoration: none;
+    }
+
+    &:hover {
+      color: $hover !important;
+    }
+
+    &:visited {
+      color: $color !important;
+
+      &:hover {
+        color: $hover !important;
+      }
+    }
+  }
+}
+
+// Unified left-bottom drop shadows
+@mixin textshadow($size: 5pt, $color: $dropshadow) {
+  text-shadow: -#{$size} #{$size} 0 #{$color};
+}
+
+@mixin boxshadow($size: 15px, $color: $dropshadow) {
+  box-shadow: -#{$size} #{$size} 0 #{$color};
+}
+
+// Link coloring with no transition
+@mixin notransition {
+  -moz-transition: none;
+  -webkit-transition: none;
+  -o-transition: all 0 ease-in;
+  transition: none;
+}
