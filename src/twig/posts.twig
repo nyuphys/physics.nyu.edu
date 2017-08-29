@@ -2,6 +2,8 @@
 
   {# Landing page content #}
   {% for post in paged_pages|sort_by('time')|reverse %}
+    {% if post.meta.status is defined and post.meta.status == 'draft' %}
+    {% else %}
     <article class="post col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2 col-xs-12">
       <div class="post-content">
         <div class="post-data clearfix row">
@@ -12,6 +14,7 @@
         {{ post.id|content }}
       </div>
     </article>
+    {% endif %}
   {% endfor %}
 
   <div class="pagination-container col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2 col-xs-12">
@@ -27,6 +30,8 @@
   </div>
 
   {% for post in paged_pages|sort_by('time')|reverse %}
+    {% if post.meta.status is defined and post.meta.status == 'draft' %}
+    {% else %}
     <article class="post col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2 col-xs-12">
       <div class="post-content">
         <div class="post-data clearfix row">
@@ -37,6 +42,7 @@
         {{ post.id|content }}
       </div>
     </article>
+    {% endif %}
   {% endfor %}
 
   <div class="pagination-container col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2 col-xs-12">
