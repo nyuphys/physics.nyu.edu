@@ -59,7 +59,7 @@
         height: auto;
       }
 
-      @media screen and (min-resolution: 1dppx) {
+      @include mqpixel(0) {
         .catbug-1 {
           display: inline;
         }
@@ -69,7 +69,7 @@
         }
       }
 
-      @media screen and (min-resolution: 2dppx) {
+      @include mqpixel(1) {
         .catbug-1 {
           display: none;
         }

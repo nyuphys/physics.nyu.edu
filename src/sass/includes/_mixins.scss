@@ -15,6 +15,7 @@ $breakpoints: (
   "lg": 1200px
 );
 
+// Media query stuffs
 @mixin mq($width, $type: min) {
   @if map_has_key($breakpoints, $width) {
     $width: map_get($breakpoints, $width);
@@ -29,7 +30,22 @@ $breakpoints: (
   }
 }
 
-// Static coloring of links; handle should be a, but in case for classing, I'll leave it open
+@mixin mqpixel($retina: 0) {
+  @if $retina == 1 {
+    @media
+    only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min--moz-device-pixel-ratio: 2), only screen and (-moz-min-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2/1), only screen and (min-device-pixel-ratio: 2), only screen and (min-resolution: 192dpi), only screen and (min-resolution: 2dppx) {
+      @content;
+    }
+  }
+
+  @else {
+    @media only screen and (-webkit-min-device-pixel-ratio: 1), only screen and (min--moz-device-pixel-ratio: 1), only screen and (-moz-min-device-pixel-ratio: 1), only screen and (-o-min-device-pixel-ratio: 1/1), only screen and (min-device-pixel-ratio: 1), only screen and (min-resolution: 96dpi), only screen and (min-resolution: 1dppx) {
+      @content;
+    }
+  }
+}
+
+// Link styling
 @mixin linkstatic($handle: a) {
 
   #{$handle} {

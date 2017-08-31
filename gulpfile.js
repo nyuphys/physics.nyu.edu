@@ -1,10 +1,13 @@
 const gulp       = require('gulp'),
+      pump       = require('pump'),
       sass       = require('gulp-scss'),
       fconcat    = require('gulp-concat'),
       clean      = require('gulp-clean'),
       cssmin     = require('gulp-csso'),
       child      = require('child_process'),
       sequence   = require('gulp-sequence').use(gulp),
+      uglify     = require('gulp-uglify'),
+      babel      = require('gulp-babel'),
 
       THEME_NAME = 'sps',
       THEME_DIR  = `web/themes/${THEME_NAME}`,
@@ -73,6 +76,65 @@ gulp.task('vendor-css-build', () => {
     .pipe(gulp.dest(`${BUILD_DIR}/css`));
 });
 
+gulp.task('vendor-js-build', () => {
+  return gulp.src('vendor/js/*.js')
+    .pipe(gulp.dest(`${BUILD_DIR}/js/vendor`));
+});
+
+gulp.task('compress-regular', (callback) => {
+  pump([
+    gulp.src(['src/js/**/*.js', '!src/js/front-page/*.js']),
+    babel({
+      presets: ['env']
+    }),
+    uglify(),
+    gulp.dest(`${BUILD_DIR}/js/normal`)
+  ], callback);
+});
+
+gulp.task('compress-front', (callback) => {
+  pump([
+    gulp.src(['src/js/front-page/*.js']),
+    babel({
+      presets: ['env']
+    }),
+    uglify(),
+    gulp.dest(`${BUILD_DIR}/js/front`)
+  ], callback);
+});
+
+gulp.task('compress-regular-dev', (callback) => {
+  pump([
+    gulp.src(['src/js/**/*.js', '!src/js/front-page/*.js']),
+    babel({
+      presets: ['env']
+    }),
+    gulp.dest(`${BUILD_DIR}/js/normal`)
+  ], callback);
+});
+
+gulp.task('compress-front-dev', (callback) => {
+  pump([
+    gulp.src(['src/js/front-page/*.js']),
+    babel({
+      presets: ['env']
+    }),
+    gulp.dest(`${BUILD_DIR}/js/front`)
+  ], callback);
+});
+
+gulp.task('js-bundle-regular', () => {
+  return gulp.src([`${BUILD_DIR}/js/vendor/*.js`, `${BUILD_DIR}/js/normal/*.js`])
+  .pipe(fconcat('main.min.js'))
+  .pipe(gulp.dest(`${THEME_DIR}/js`));
+});
+
+gulp.task('js-bundle-front', () => {
+  return gulp.src([`${BUILD_DIR}/js/front/*.js`])
+    .pipe(fconcat('front.min.js'))
+    .pipe(gulp.dest(`${THEME_DIR}/js`));
+});
+
 /**
  * Move vendor fonts to theme directory
  *
@@ -115,7 +177,9 @@ gulp.task('css-bundle-prod', () => {
  *
  */
 gulp.task('watch', () => {
-  gulp.watch('src/**/*', ['default']);
+  gulp.watch('src/twig/**/*', ['default']);
+  gulp.watch('src/sass/**/*', ['watch-sass']);
+  gulp.watch('src/js/**/*', ['watch-js']);
   console.log('Keeping an eye on the project files...');
 });
 
@@ -128,11 +192,29 @@ gulp.task('css-prod', (callback) => {
   sequence(['sass-prod', 'vendor-css-build'], 'css-bundle-prod')(callback);
 });
 
+// Build JS
+gulp.task('js-dev', (callback) => {
+  sequence(['compress-front-dev', 'compress-regular-dev', 'vendor-js-build'], ['js-bundle-front', 'js-bundle-regular'])(callback);
+});
+
+gulp.task('js-prod', (callback) => {
+  sequence(['compress-front', 'compress-regular', 'vendor-js-build'], ['js-bundle-front', 'js-bundle-regular'])(callback);
+});
+
+// Watch events
+gulp.task('watch-js', (callback) => {
+  sequence(['js-dev'], 'clean')(callback);
+});
+
+gulp.task('watch-sass', (callback) => {
+  sequence(['css-dev'], 'clean')(callback);
+});
+
 // Prefered executables
 gulp.task('default', (callback) => {
-  sequence(['twig', 'img-assets', 'css-dev', 'vendor-font-build'], 'clean')(callback);
+  sequence(['twig', 'img-assets', 'css-dev', 'js-dev', 'vendor-font-build'], 'clean')(callback);
 });
 
 gulp.task('production', (callback) => {
-  sequence(['twig', 'img-assets', 'css-prod', 'vendor-font-build'], 'clean')(callback);
+  sequence(['twig', 'img-assets', 'css-prod', 'js-prod', 'vendor-font-build'], 'clean')(callback);
 });

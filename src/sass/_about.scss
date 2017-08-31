@@ -9,13 +9,40 @@ $sky-text: #0D0C31;
 
 section.about {
   height: 100vh;
+  overflow: hidden;
+
+  .about-equations {
+    position: relative;
+    width: 100%;
+    height: inherit;
+
+    #aboutCanvas {
+      width: 100%;
+      height: 100%;
+    }
+
+    .equation {
+      display: none;
+      position: absolute;
+      visibility: hidden;
+    }
+
+    .equation.visible {
+      display: block;
+      visibility: visible;
+      opacity: .8;
+    }
+  }
 
   .about-container {
     position: relative;
     text-align: center;
     height: 100%;
+    top: -100%;
+    z-index: 100;
 
     .about-block {
+
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
@@ -40,6 +67,10 @@ section.about {
 section.about.clear-skies {
   background-color: $sky-blue;
 
+  .about-equations {
+    color: $sky-text;
+  }
+
   .about-container {
 
     h1 {
@@ -51,6 +82,10 @@ section.about.clear-skies {
 
 section.about.night {
   background-color: $night-navy;
+
+  .about-equations {
+    color: $seafoamlt;
+  }
 
   .about-container {
 

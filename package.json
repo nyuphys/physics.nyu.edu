@@ -2,31 +2,31 @@
   "name": "nyu-sps-site",
   "version": "1.0.0",
   "license": "MIT",
-
-  "contributors" : [
+  "contributors": [
     {
       "name": "Patrick Anker",
       "email": "psanker@nyu.edu"
     }
   ],
-
-  "repository" : {
+  "repository": {
     "type": "git",
     "url": "https://github.com/psanker/physics.nyu.edu.git"
   },
-
-  "scripts" : {
+  "scripts": {
     "start": "docker-compose up"
   },
-
-  "devDependencies" : {
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.6.0",
     "gulp": "^3.9.1",
-    "gulp-scss": "^1.4.0",
+    "gulp-babel": "^7.0.0",
     "gulp-clean": "^0.3.2",
-    "gulp-csso": "^3.0.0",
     "gulp-concat": "^2.6.1",
-    "gulp-sequence": "^0.4.6"
+    "gulp-csso": "^3.0.0",
+    "gulp-scss": "^1.4.0",
+    "gulp-sequence": "^0.4.6",
+    "gulp-uglify": "^3.0.0",
+    "pump": "^1.0.2"
   },
-
   "sasslintConfig": ".sass-lint.yml"
 }
