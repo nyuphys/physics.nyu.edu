@@ -21,14 +21,14 @@
           animation: 'fadeInLeft',
           theme: 'night',
           top: '10%',
-          left: '20%'
+          left: '8%'
         },
 
         einGravEq: {
           animation: 'fadeInRight',
           theme: 'night',
-          right: '30%',
-          top: '20%'
+          right: '15%',
+          top: '10%'
         },
 
         stefanBoltzmannEq: {
@@ -213,6 +213,7 @@
       this.ctx = context;
       this.actors = [];
       this.animating = false;
+      this.haltAnimation = false;
       this.oldTick   = 0;
       this.firstTick = 0;
     }
@@ -220,6 +221,17 @@
     // Setup and pass 'render' to requestAnimationFrame
     start() {
       console.log('Not implemented');
+    }
+
+    restart() {
+      this.haltAnimation = false;
+
+      this.render();
+      win.requestAnimationFrame(appAnimate);
+    }
+
+    stop() {
+      this.haltAnimation = true;
     }
 
     setupTimes() {
@@ -342,9 +354,10 @@
   }
 
   function appAnimate() {
-    app.activeScene.render();
-
-    win.requestAnimationFrame(appAnimate);
+    if (!app.activeScene.haltAnimation) {
+      app.activeScene.render();
+      win.requestAnimationFrame(appAnimate);
+    }
   }
 
   let oldScroll = 0;
@@ -365,6 +378,14 @@
 
     if (off >= (aboutOff / 2) && off > oldScroll) {
       $('.about').trigger(EVENTS.fadeIn);
+    }
+
+    if (off > (aboutOff + aboutHeight) && off > oldScroll && app.activeScene.animating) {
+      app.activeScene.stop();
+    }
+
+    if (off <= (aboutOff + aboutHeight) && off < oldScroll && app.activeScene.haltAnimation) {
+      app.activeScene.restart();
     }
 
     // Update current location

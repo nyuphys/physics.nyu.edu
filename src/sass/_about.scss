@@ -1,7 +1,7 @@
 @import 'globals';
 
 $sky-blue: #55A3F7;
-$night-navy: #001F3F;
+$night-navy: #011529;
 $cloudy-grey: #AAAAAA;
 $pale-seafoam: lighten($seafoamlt, 20%);
 
@@ -25,6 +25,10 @@ section.about {
       display: none;
       position: absolute;
       visibility: hidden;
+
+      .MathJax_CHTML {
+        font-size: 1.5em !important;
+      }
     }
 
     .equation.visible {
@@ -42,7 +46,6 @@ section.about {
     z-index: 100;
 
     .about-block {
-
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
@@ -72,6 +75,7 @@ section.about.clear-skies {
   }
 
   .about-container {
+    @include textshadow(2pt, transparentize($sky-text, 0.85));
 
     h1 {
       @include linkdynamicinv($sky-text);
@@ -88,6 +92,7 @@ section.about.night {
   }
 
   .about-container {
+    @include textshadow(2pt, transparentize($seafoamdk, 0.85));
 
     h1 {
       @include linkdynamicinv($seafoamlt);
