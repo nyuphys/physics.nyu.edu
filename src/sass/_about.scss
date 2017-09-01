@@ -26,8 +26,22 @@ section.about {
       position: absolute;
       visibility: hidden;
 
-      .MathJax_CHTML {
-        font-size: 1.5em !important;
+      @include mq('xs', max) {
+        .MathJax_CHTML {
+          font-size: 95% !important;
+        }
+      }
+
+      @include mq('sm') {
+        .MathJax_CHTML {
+          font-size: 125% !important;
+        }
+      }
+
+      @include mq('md') {
+        .MathJax_CHTML {
+          font-size: 150% !important;
+        }
       }
     }
 
@@ -43,7 +57,6 @@ section.about {
     text-align: center;
     height: 100%;
     top: -100%;
-    z-index: 100;
 
     .about-block {
       position: absolute;

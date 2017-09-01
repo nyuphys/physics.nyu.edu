@@ -1,5 +1,6 @@
 (function (win, doc, $, MJ) {
   const THEMES = ['clear-skies', 'night'],
+        // THEMES = ['clear-skies', 'night'],
         EVENTS = {
           animationEnd: 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend',
           fadeIn: 'app:fade-in',
@@ -18,24 +19,27 @@
 
       this.equationRegistry = {
         keplerEq: {
-          animation: 'fadeInLeft',
           theme: 'night',
           top: '10%',
-          left: '8%'
+          left: '8%',
+          appear: 'fadeInLeft',
+          click: 'bounce'
         },
 
         einGravEq: {
-          animation: 'fadeInRight',
           theme: 'night',
           right: '15%',
-          top: '10%'
+          top: '10%',
+          appear: 'fadeInRight',
+          click: 'rubberBand'
         },
 
         stefanBoltzmannEq: {
-          animation: 'fadeInDown',
           theme: 'clear-skies',
           right: '20%',
-          top: '10%'
+          top: '10%',
+          appear: 'fadeInDown',
+          click: 'flash'
         }
       };
 
@@ -45,7 +49,7 @@
     }
 
     initEvents() {
-      $('.about').one(EVENTS.fadeIn, this.handleAnimation);
+      $('.about').one(EVENTS.fadeIn, this.handleAppearAnimation);
     }
 
     initPositions() {
@@ -97,18 +101,82 @@
       }
     }
 
-    handleAnimation(e) {
+    generateEquationClickzones() {
+      for (let k in this.equationRegistry) {
+        if (this.activeTheme !== this.equationRegistry[k].theme) {
+          continue;
+        }
+
+        let top    = $(`#${k} .MathJax_CHTML`).offset().top,
+            left   = $(`#${k} .MathJax_CHTML`).offset().left,
+            width  = $(`#${k} .MathJax_CHTML`).outerWidth(),
+            height = $(`#${k} .MathJax_CHTML`).outerHeight(),
+            name   = `${k}Ghost`;
+
+        if ($('.about').has(`#${name}`).length === 0) {
+          let topString    = `top:${top}px;`,
+              leftString   = `left:${left}px;`;
+
+          $('.about').append(`<div id="${name}" style="position:absolute;width:${width}px;height:${height}px;${topString}${leftString}z-index:999">`);
+        }
+      }
+    }
+
+    updateEquationClickzones() {
+      for (let k in this.equationRegistry) {
+        if (this.activeTheme !== this.equationRegistry[k].theme) {
+          continue;
+        }
+
+        let top    = $(`#${k} .MathJax_CHTML`).offset().top,
+            left   = $(`#${k} .MathJax_CHTML`).offset().left,
+            width  = $(`#${k} .MathJax_CHTML`).outerWidth(),
+            height = $(`#${k} .MathJax_CHTML`).outerHeight(),
+            name   = `${k}Ghost`;
+
+        if ($(`#${name}`)) {
+          $(`#${name}`).css('top', `${top}px`);
+          $(`#${name}`).css('left', `${left}px`);
+          $(`#${name}`).css('width', `${width}px`);
+          $(`#${name}`).css('height', `${height}px`);
+        }
+      }
+    }
+
+    registerGhostEvents() {
+      for (let k in this.equationRegistry) {
+        if (this.activeTheme !== this.equationRegistry[k].theme) {
+          continue;
+        }
+
+        $(`#${k}Ghost`).on('mouseover', app.handleClickAnimation);
+      }
+    }
+
+    handleAppearAnimation(e) {
       $.each($('.about-equations .equation'), function (i, val) {
         if (!!$(val).attr('id')) {
           let id = $(val).attr('id');
 
           if ($('.about').hasClass(app.equationRegistry[id].theme)) {
-            $(val).addClass(`${app.equationRegistry[id].animation} animated visible`).one(EVENTS.animationEnd, function (e) {
+            $(val).addClass(`${app.equationRegistry[id].appear} animated visible`).one(EVENTS.animationEnd, function (e) {
+              app.updateEquationClickzones();
               $(this).removeClass('animated');
             });
           }
         }
       });
+    }
+
+    handleClickAnimation(e) {
+      e.preventDefault();
+      let id = $(e.target).attr('id').replace(/Ghost/g, '');
+
+      if (!$(`#${id} .MathJax_CHTML`).hasClass(app.equationRegistry[id].click)) {
+        $(`#${id} .MathJax_CHTML`).addClass(`${app.equationRegistry[id].click} animated`).one(EVENTS.animationEnd, function (e) {
+          $(`#${id} .MathJax_CHTML`).removeClass(`${app.equationRegistry[id].click} animated`);
+        });
+      }
     }
   }
 
@@ -152,16 +220,25 @@
         context.strokeStyle = this.color;
       }
 
-      let rad = (this.r / 8) * (Math.sin((Math.PI / 8) * (options.Dt / 1000)) * Math.sin((Math.PI / 8) * (options.Dt / 1000)));
+      let srad = 0,
+           rad = 0;
+
+      if (this.r < 1 && this.r > 0) { // Use width as reference pixel size
+        rad  = this.translateX(this.r, context);
+        srad = (rad / 8) * (Math.sin((Math.PI / 8) * (options.Dt / 1000)) * Math.sin((Math.PI / 8) * (options.Dt / 1000)));
+      } else {
+        rad  = this.r;
+        srad = (rad / 8) * (Math.sin((Math.PI / 8) * (options.Dt / 1000)) * Math.sin((Math.PI / 8) * (options.Dt / 1000)));
+      }
 
       context.beginPath();
-      context.arc(this.translateX(this.x, context), this.translateY(this.y, context), this.r, 0, 2 * Math.PI);
+      context.arc(this.translateX(this.x, context), this.translateY(this.y, context), rad, 0, 2 * Math.PI);
 
       if (this.fill) {
         context.fill();
 
         if (this.stroke) {
-          context.lineWidth = rad;
+          context.lineWidth = srad;
           context.stroke();
         }
       } else {
@@ -308,7 +385,7 @@
     }
 
     start() {
-      let sun = new SunActor(0.95, 0.05, 150, '#FFDC00', '#FF851B');
+      let sun = new SunActor(0.95, 0.05, 0.13, '#FFDC00', '#FF851B');
 
       this.attachActor(sun);
 
@@ -329,7 +406,7 @@
     }
 
     start() {
-      let starColors = ['#C1E1FF', '#E8FFD8', '#FFD1CA', '#FAFCFF', '#FFE5CA'];
+      let starColors = ['#C1E1FF', '#f1f9e3', '#FFD1CA', '#FAFCFF', '#FFE5CA'];
 
       for (let i = 0; i < this.numStars; ++i) {
         let s = new StarActor(Math.random(), Math.random(), randIntInclusive(StarActor.SIZE_MIN, StarActor.SIZE_MAX), starColors[randIntInclusive(0, starColors.length - 1)]);
@@ -393,6 +470,8 @@
   });
 
   $(win).resize(function (e) {
+    app.updateEquationClickzones();
+
     if (!!app.activeScene) {
       doc.getElementById(CANVAS).width = $('.about').outerWidth();
       doc.getElementById(CANVAS).height = $('.about').outerHeight();
@@ -408,5 +487,10 @@
     $('html, body').animate({
       scrollTop: $('#about').offset().top
     }, 1000);
+  });
+
+  MJ.Hub.Register.StartupHook("End", function () {
+    app.generateEquationClickzones();
+    app.registerGhostEvents();
   });
 }(window, document, jQuery, MathJax));
