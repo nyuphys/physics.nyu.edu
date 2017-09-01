@@ -12,6 +12,11 @@
     transform: translateY(-50%);
     width: 40%;
 
+    @include mq('xs', max) {
+      left: 5%;
+      width: 90%;
+    }
+
     h1 {
       @include transition(0.5s text-shadow);
       margin: 0;
@@ -19,7 +24,7 @@
       text-shadow: -5pt 5pt 0 $dropshadow;
 
       @include mq('xs', max) {
-        font-size: 56pt;
+        font-size: 42pt;
       }
 
       &:hover {
@@ -38,8 +43,7 @@
     z-index: -1;
 
     @include mq('xs', max) {
-      right: 0px;
-      bottom: -25%;
+      bottom: -5%;
       right: -25%;
     }
 
