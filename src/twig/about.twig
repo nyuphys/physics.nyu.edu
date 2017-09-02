@@ -12,3 +12,13 @@
     </div>
   </div>
 </section>
+
+<script type="text/javascript">
+  $('.about').on('app:background-ready', function (e) {
+    if ($('.about').hasClass('clear-skies')) {
+      $('.about-container').css('background-image', 'url({{ theme_url }}/img/726-clear-skies.png)');
+    } else if ($('.about').hasClass('night')) {
+      $('.about-container').css('background-image', 'url({{ theme_url }}/img/726-night.png)');
+    }
+  });
+</script>

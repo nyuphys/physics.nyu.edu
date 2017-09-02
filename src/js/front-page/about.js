@@ -4,7 +4,8 @@
         EVENTS = {
           animationEnd: 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend',
           fadeIn: 'app:fade-in',
-          sceneStart: 'app:scene-start'
+          sceneStart: 'app:scene-start',
+          backgroundReady: 'app:background-ready'
         },
         CANVAS = 'aboutCanvas';
 
@@ -444,6 +445,7 @@
     let index = randIntInclusive(0, THEMES.length - 1);
 
     $('.about').addClass(THEMES[index]);
+    $('.about').trigger(EVENTS.backgroundReady);
 
     app = new AboutApp(THEMES[index]);
   });

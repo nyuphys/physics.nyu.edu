@@ -91,7 +91,6 @@ section.about.clear-skies {
     @include textshadow(2pt, transparentize($sky-text, 0.85));
 
     background: {
-      image: url("/themes/sps/img/726-clear-skies.png");
       repeat: no-repeat;
       position: bottom center;
       size: 25%;
@@ -115,7 +114,6 @@ section.about.night {
     @include textshadow(2pt, transparentize($seafoamdk, 0.85));
 
     background: {
-      image: url("/themes/sps/img/726-night.png");
       repeat: no-repeat;
       position: bottom center;
       size: 25%;
