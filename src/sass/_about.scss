@@ -90,6 +90,13 @@ section.about.clear-skies {
   .about-container {
     @include textshadow(2pt, transparentize($sky-text, 0.85));
 
+    background: {
+      image: url("/themes/sps/img/726-clear-skies.png");
+      repeat: no-repeat;
+      position: bottom center;
+      size: 25%;
+    }
+
     h1 {
       @include linkdynamicinv($sky-text);
       color: $sky-text;
@@ -106,6 +113,13 @@ section.about.night {
 
   .about-container {
     @include textshadow(2pt, transparentize($seafoamdk, 0.85));
+
+    background: {
+      image: url("/themes/sps/img/726-night.png");
+      repeat: no-repeat;
+      position: bottom center;
+      size: 25%;
+    }
 
     h1 {
       @include linkdynamicinv($seafoamlt);
