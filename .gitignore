@@ -20,3 +20,6 @@ web/themes/sps
 # Admin config for security reasons
 web/plugins/pico_edit/config.php
 web/config/options.conf
+
+# Web posts ignored so nothing gets overwritten
+web/content/posts
