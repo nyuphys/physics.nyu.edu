@@ -49,6 +49,47 @@ $xs-yt-width: 100%;
       max-width: $insert-width;
     }
 
+    // Question & Answer blocks
+    ul.q-a {
+      padding: 0;
+      list-style: none;
+
+      li {
+        &:nth-child(odd) {
+          // These are the Questions
+          font-size: 1.3em;
+          font-weight: 400;
+
+          &::before {
+            display: inline-block;
+            content: 'Q';
+            margin-right: 10px;
+            padding: 10px;
+            font-size: 1.5em;
+            color: $white;
+            background-color: $nyupurple;
+          }
+        }
+
+        &:nth-child(even) {
+          // These are the Answers
+          margin-bottom: 1.5em;
+
+          &::before {
+            display: inline-block;
+            content: 'A';
+            margin-right: 10px;
+            padding: 10px;
+            font: {
+              size: 1.5em;
+              weight: 300;
+            }
+            color: $seafoamdk;
+          }
+        }
+      }
+    }
+
     // YouTube embeds
     .aspect-ratio {
       margin: $insert-margin auto;
