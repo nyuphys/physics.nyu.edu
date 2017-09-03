@@ -64,7 +64,12 @@ $xs-yt-width: 100%;
             display: inline-block;
             content: 'Q';
             margin-right: 10px;
-            padding: 10px;
+            padding: {
+              left: 10px;
+              right: 10px;
+              top: 5px;
+              bottom: 5px;
+            }
             font-size: 1.5em;
             color: $white;
             background-color: $nyupurple;
@@ -79,7 +84,12 @@ $xs-yt-width: 100%;
             display: inline-block;
             content: 'A';
             margin-right: 10px;
-            padding: 10px;
+            padding: {
+              left: 10px;
+              right: 10px;
+              top: 5px;
+              bottom: 5px;
+            }
             font: {
               size: 1.5em;
               weight: 300;
