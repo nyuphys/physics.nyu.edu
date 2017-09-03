@@ -113,6 +113,20 @@ $xs-yt-width: 100%;
       }
     }
 
+    // 404
+    .were-lost {
+      text-align: center;
+      p {
+        font-size: 24pt;
+        text-align: center;
+        color: lighten($black, 25%);
+      }
+
+      i {
+        color: lighten($black, 25%);
+      }
+    }
+
     // Metadata
     .post-data {
       @include linkdynamic();

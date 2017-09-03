@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+
+    <title>{% if meta.title %}{{meta.title}} | {% endif %}{{site_title}}</title>
+
+    {% if meta.description %}
+      <meta name="description" content="{{ meta.description|striptags }}">
+    {% endif %}
+    {% if meta.robots %}
+      <meta name="robots" content="{{ meta.robots }}">
+    {% endif %}
+
+    {# OpenGraph queries #}
+    <meta property="og:title" content="{% if meta.title %}{{meta.title}} | {% endif %}{{site_title}}" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="{{ current_page.url }}" />
+    {% if meta.description %}
+      <meta property="og:description" content="{{ meta.description|striptags }}">
+    {% endif %}
+
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,600" rel="stylesheet">
+    <link rel="stylesheet" href="{{ theme_url }}/style.min.css" />
+    <link rel="shortcut icon" href="{{ base_url }}/assets/favicon.png" />
+
+    <script src="http://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+
+    <!-- MathJax support - add LaTeX! -->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$', '$'], ['\\(', '\\)']]},
+        messageStyle: "none",
+        processEscapes: true,
+        showMathMenu: false
+      });
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_CHTML"></script>
+  </head>
+
+  <body>
+    <div class="container">
+      {# Landing page header #}
+      {% if is_front_page %}
+        {{ include('header.twig') }}
+        {{ include('about.twig') }}
+      {% endif %}
+
+      <section class="content row">
+        {% if current_page.id == 'resources/index' %}
+        {{ include('resources.twig') }}
+        {% else %}
+        {{ include('404-posts.twig') }}
+        {% endif %}
+      </section>
+
+      {{ include('footer.twig') }}
+    </div>
+
+    {{ include('navbar.twig') }}
+    {{ include('controllers.twig') }}
+
+    {# GOOGLE ANALYTICS -- ONLY REMOVE COMMENT WHEN DEPLOYING TO LIVE
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','https://www.google-analytics.com/analytics.js','ga'); ga('create', 'UA-104098604-1', 'auto'); ga('send', 'pageview');
+    </script>
+    #}
+  </body>
+</html>
