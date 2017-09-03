@@ -7,6 +7,42 @@ $insert-margin: 10pt;
 $insert-width: 65%;
 $xs-yt-width: 100%;
 
+$qa-margin-bt: 10px;
+
+@mixin qaPositioning {
+  margin-left: $qa-margin-bt;
+
+  &:nth-child(odd) {
+    &::before {
+      display: inline-block;
+      position: relative;
+      margin-right: $qa-margin-bt;
+      left: -#{$qa-margin-bt};
+      padding: {
+        left: 10px;
+        right: 10px;
+        top: 5px;
+        bottom: 5px;
+      }
+    }
+  }
+
+  &:nth-child(even) {
+    &::before {
+      display: inline-block;
+      position: relative;
+      margin-right: $qa-margin-bt;
+      left: -#{$qa-margin-bt};
+      padding: {
+        left: 10px;
+        right: 10px;
+        top: 5px;
+        bottom: 5px;
+      }
+    }
+  }
+}
+
 // Content override for post buffer
 .content article:first-child {
   margin-top: 3 * $post-margin;
@@ -55,21 +91,15 @@ $xs-yt-width: 100%;
       list-style: none;
 
       li {
+        @include qaPositioning();
+
         &:nth-child(odd) {
           // These are the Questions
           font-size: 1.3em;
           font-weight: 400;
 
           &::before {
-            display: inline-block;
             content: 'Q';
-            margin-right: 10px;
-            padding: {
-              left: 10px;
-              right: 10px;
-              top: 5px;
-              bottom: 5px;
-            }
             font-size: 1.5em;
             color: $white;
             background-color: $nyupurple;
@@ -81,19 +111,13 @@ $xs-yt-width: 100%;
           margin-bottom: 1.5em;
 
           &::before {
-            display: inline-block;
             content: 'A';
-            margin-right: 10px;
-            padding: {
-              left: 10px;
-              right: 10px;
-              top: 5px;
-              bottom: 5px;
-            }
             font: {
               size: 1.5em;
-              weight: 300;
+              weight: 400;
             }
+            padding-left: 13px !important;
+            padding-right: 15px !important;
             color: $seafoamdk;
           }
         }
