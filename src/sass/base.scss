@@ -47,7 +47,7 @@ a {
   }
 
   &:visited {
-    color: darken($nyupurple, 20%);
+    color: darken($nyupurple, 5%);
 
     &:hover {
       color: lighten($nyupurple, 20%);

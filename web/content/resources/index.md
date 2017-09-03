@@ -6,6 +6,18 @@ Title: Resources
 [PhysGuide]: http://as.nyu.edu/content/dam/nyu-as/physics/documents/undergrad/Guide_to_the_Physics_Major_by_Felix_Feist.pdf
 [PhysProfs]: %base_url%/assets/polin-prof-guide.pdf
 
+# FAQ
+
+From the spritely freshman to the seasoned senior, we all have questions to ask. Here are some that have common answers:
+<ul class="q-a">
+  <li>Where is the Physics Department?</li>
+  <li>We are located on the <strong>8th through 10th floors</strong> in <a href="https://goo.gl/maps/LtWXX9H9Yw12"><strong>726 Broadway</strong></a>. Up until May 2017, we were located in Meyer Hall, but now the Psychology & Neuroscience Department has sole possession of that building.</li>
+  <li>Where do physics people hang out?</li>
+  <li>We're peppered around a few places in 726 Broadway. The social epicenter of the physics undergraduates is <strong>Room 1014</strong>, right across from the administration offices.</li>
+  <li>When and where are SPS meetings?</li>
+  <li>We meet <strong>every Thursday at 7PM</strong>. Since the full meetings would overrun Room 1014, we are looking for a permanent meeting room. We'll update this as soon as we can!</li>
+</ul>
+
 # Personnel
 
 <table>
