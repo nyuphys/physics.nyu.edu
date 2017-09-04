@@ -26,6 +26,13 @@
     <link rel="stylesheet" href="{{ theme_url }}/style.min.css" />
     <link rel="shortcut icon" href="{{ base_url }}/assets/favicon.png" />
 
+    {# Apple crap #}
+    <link rel="apple-touch-icon" href="{{ base_url }}/assets/apple-touch-icon-80x80.png" />
+    <link rel="apple-touch-icon" sizes="120x120" href="{{ base_url }}/assets/sps-apple-iphone.png" />
+    <link rel="apple-touch-icon" sizes="152x152" href="{{ base_url }}/assets/sps-apple-ipad.png" />
+    <link rel="apple-touch-icon" sizes="167x167" href="{{ base_url }}/assets/sps-apple-ipad-retina.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ base_url }}/assets/sps-apple-iphone-retina.png" />
+
     <script src="http://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
 
     <!-- MathJax support - add LaTeX! -->
@@ -62,10 +69,7 @@
     {{ include('navbar.twig') }}
     {{ include('controllers.twig') }}
 
-    {# GOOGLE ANALYTICS -- ONLY REMOVE COMMENT WHEN DEPLOYING TO LIVE
-    <script>
-      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','https://www.google-analytics.com/analytics.js','ga'); ga('create', 'UA-104098604-1', 'auto'); ga('send', 'pageview');
+    <script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','https://www.google-analytics.com/analytics.js','ga'); ga('create', 'UA-104098604-1', 'auto'); ga('send', 'pageview');
     </script>
-    #}
   </body>
 </html>
