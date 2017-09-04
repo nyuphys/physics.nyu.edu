@@ -1,6 +1,6 @@
 (function (win, doc, $, MJ) {
   const THEMES = ['clear-skies', 'night'],
-        // THEMES = ['clear-skies', 'night'],
+        // THEMES = ['clear-skies', 'night', 'play'],
         EVENTS = {
           animationEnd: 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend',
           fadeIn: 'app:fade-in',
@@ -89,6 +89,9 @@
             break;
           case 'night':
             this.activeScene = new NightScene(ctx, 60);
+            break;
+          case 'play':
+            this.activeScene = new PlayScene(ctx, 150);
             break;
           default:
             throw new Error('No scene found');
@@ -286,6 +289,44 @@
     }
   }
 
+  class SpotActor extends Actor {
+    constructor(x, y, r, color = 'yellow') {
+      super();
+      this.x = x;
+      this.y = y;
+      this.r = r;
+      this.color = color;
+    }
+
+    draw(context, options) {
+      context.fillStyle = this.color;
+
+      let i = randIntInclusive(-1, 1);
+
+      // Restrict between 1 and 10 pixels
+      if (this.r === SpotActor.SIZE_MIN && i < 0) {
+        // Don't do nuthin
+      } else if (this.r === SpotActor.SIZE_MAX && i > 0) {
+        // Don't do nuthin
+      } else {
+        this.r += i;
+      }
+
+      context.beginPath();
+      context.arc(this.translateX(this.x, context), this.translateY(this.y, context), this.r, 0, 2 * Math.PI);
+
+      context.fill();
+    }
+
+    static get SIZE_MAX() {
+      return 100;
+    }
+
+    static get SIZE_MIN() {
+      return 1;
+    }
+  }
+
   class Scene {
     constructor(context) {
       this.ctx = context;
@@ -411,6 +452,31 @@
 
       for (let i = 0; i < this.numStars; ++i) {
         let s = new StarActor(Math.random(), Math.random(), randIntInclusive(StarActor.SIZE_MIN, StarActor.SIZE_MAX), starColors[randIntInclusive(0, starColors.length - 1)]);
+
+        this.attachActor(s);
+      }
+
+      this.animating = true;
+      this.setupTimes();
+      this.render();
+
+      // Using global function to preserve the app's context
+      win.requestAnimationFrame(appAnimate);
+    }
+  }
+
+  class PlayScene extends Scene {
+    constructor(context, numSpots) {
+      super(context);
+
+      this.numSpots = numSpots;
+    }
+
+    start() {
+      let spotColors = ['#0c67bd', '#4cb504', '#d12005', '#fff739', '#e67500', '#b500b3'];
+
+      for (let i = 0; i < this.numSpots; ++i) {
+        let s = new SpotActor(Math.random(), Math.random(), randIntInclusive(SpotActor.SIZE_MIN, SpotActor.SIZE_MAX), spotColors[randIntInclusive(0, spotColors.length - 1)]);
 
         this.attachActor(s);
       }
