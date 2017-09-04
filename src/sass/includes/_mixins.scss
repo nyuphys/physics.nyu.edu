@@ -150,6 +150,15 @@ $breakpoints: (
         color: $hover !important;
       }
     }
+
+    @include mq('xs', max) {
+      color: $hover !important;
+      transition: 0 0;
+
+      &:visited {
+        color: $hover !important;
+      }
+    }
   }
 }
 
