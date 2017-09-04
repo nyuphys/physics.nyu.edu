@@ -16,6 +16,8 @@ From the spritely freshman to the seasoned senior, we all have questions to ask.
   <li>We're peppered around a few places in 726 Broadway. The social epicenter of the physics undergraduates is <strong>Room 1014</strong>, right across from the administration offices.</li>
   <li>When and where are SPS meetings?</li>
   <li>We meet <strong>every Thursday at 7PM</strong>. Since the full meetings would overrun Room 1014, we are looking for a permanent meeting room. We'll update this as soon as we can!</li>
+  <li>Do I have to be a physics major to join SPS or attend an SPS meeting?</li>
+  <li>Absolutely not! We like hearing stuff from all different walks of life. Just keep in mind: we are a bunch of <span style="text-decoration:line-through">nerds</span> peeps who enjoy math-y things, so there is bound to be a plethora of mathematics referenced in our meetings. The only requirement to attend our meetings is that <strong>you must be affiliated with NYU, i.e. a student, faculty, staff, or alumni member</strong>.</li>
 </ul>
 
 # Personnel

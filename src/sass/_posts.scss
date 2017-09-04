@@ -10,7 +10,6 @@ $xs-yt-width: 100%;
 $qa-margin-bt: 10px;
 
 @mixin qaPositioning {
-  margin-left: $qa-margin-bt;
 
   &:nth-child(odd) {
     &::before {
@@ -28,6 +27,8 @@ $qa-margin-bt: 10px;
   }
 
   &:nth-child(even) {
+    margin-bottom: 1.5em;
+    
     &::before {
       display: inline-block;
       position: relative;
@@ -40,6 +41,10 @@ $qa-margin-bt: 10px;
         bottom: 5px;
       }
     }
+  }
+
+  &:last-child {
+    margin-bottom: 0;
   }
 }
 
@@ -78,6 +83,15 @@ $qa-margin-bt: 10px;
       text-align: justify;
     }
 
+    ul {
+      margin: 20px auto;
+      padding: 0;
+
+      li {
+        padding: 10px;
+      }
+    }
+
     img {
       display: block;
       margin: $insert-margin auto;
@@ -94,6 +108,14 @@ $qa-margin-bt: 10px;
         @include qaPositioning();
 
         &:nth-child(odd) {
+          background-color: darken($white, 5%);
+        }
+
+        &:nth-child(even) {
+          background-color: darken($white, 10%);
+        }
+
+        &:nth-child(odd) {
           // These are the Questions
           font-size: 1.3em;
           font-weight: 400;
@@ -108,7 +130,6 @@ $qa-margin-bt: 10px;
 
         &:nth-child(even) {
           // These are the Answers
-          margin-bottom: 1.5em;
 
           &::before {
             content: 'A';
