@@ -41,6 +41,14 @@
           top: '10%',
           appear: 'fadeInDown',
           click: 'flash'
+        },
+
+        rayleighMolecularEq: {
+          theme: 'clear-skies',
+          top: '10%',
+          left: '8%',
+          appear: 'fadeInLeft',
+          click: 'bounceIn'
         }
       };
 
