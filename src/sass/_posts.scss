@@ -28,7 +28,7 @@ $qa-margin-bt: 10px;
 
   &:nth-child(even) {
     margin-bottom: 1.5em;
-    
+
     &::before {
       display: inline-block;
       position: relative;
@@ -84,8 +84,15 @@ $qa-margin-bt: 10px;
     }
 
     ul {
-      margin: 20px auto;
+      margin: {
+        top: 20px;
+        right: auto;
+        bottom: 20px;
+        left: 20px;
+      }
+
       padding: 0;
+      list-style: square;
 
       li {
         padding: 10px;
@@ -103,6 +110,7 @@ $qa-margin-bt: 10px;
     ul.q-a {
       padding: 0;
       list-style: none;
+      margin-left: auto;
 
       li {
         @include qaPositioning();
