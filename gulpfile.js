@@ -1,23 +1,23 @@
 const gulp     = require('gulp'),
-	sass       = require('gulp-scss'),
-	fconcat    = require('gulp-concat'),
-	clean      = require('gulp-clean'),
-	cssmin     = require('gulp-csso'),
-	child      = require('child_process'),
-	sequence   = require('gulp-sequence').use(gulp),
-	uglify     = require('gulp-uglify'),
-	babel      = require('gulp-babel'),
-	browserify = require('browserify'),
-	source     = require('vinyl-source-stream'),
-	buffer     = require('vinyl-buffer'),
-	rename     = require('gulp-rename'),
+    sass       = require('gulp-scss'),
+    fconcat    = require('gulp-concat'),
+    clean      = require('gulp-clean'),
+    cssmin     = require('gulp-csso'),
+    child      = require('child_process'),
+    sequence   = require('gulp-sequence').use(gulp),
+    uglify     = require('gulp-uglify'),
+    babel      = require('gulp-babel'),
+    browserify = require('browserify'),
+    source     = require('vinyl-source-stream'),
+    buffer     = require('vinyl-buffer'),
+    rename     = require('gulp-rename'),
 
-	THEME_NAME = 'sps',
-	THEME_DIR  = `web/themes/${THEME_NAME}`,
-	BUILD_DIR  = '.build';
+    THEME_NAME = 'sps',
+    THEME_DIR  = `web/themes/${THEME_NAME}`,
+    BUILD_DIR  = '.build';
 
 function isDevelopment() {
-	return process.env.NODE_ENV === 'development';
+    return process.env.NODE_ENV === 'development';
 }
 
 /**
@@ -25,8 +25,8 @@ function isDevelopment() {
  *
  */
 gulp.task('clean', () => {
-	return gulp.src(BUILD_DIR, {read: false})
-		.pipe(clean({force: true}));
+    return gulp.src(BUILD_DIR, {read: false})
+        .pipe(clean({force: true}));
 });
 
 
@@ -35,8 +35,8 @@ gulp.task('clean', () => {
  *
  */
 gulp.task('twig', () => {
-	return gulp.src('src/twig/*.twig')
-		.pipe(gulp.dest(THEME_DIR));
+    return gulp.src('src/twig/*.twig')
+        .pipe(gulp.dest(THEME_DIR));
 });
 
 /**
@@ -44,8 +44,8 @@ gulp.task('twig', () => {
  *
  */
 gulp.task('img-assets', () => {
-	return gulp.src(['assets/*.jpg', 'assets/*.png', 'assets/*.svg'])
-		.pipe(gulp.dest(`${THEME_DIR}/img`));
+    return gulp.src(['assets/*.jpg', 'assets/*.png', 'assets/*.svg'])
+        .pipe(gulp.dest(`${THEME_DIR}/img`));
 });
 
 
@@ -55,19 +55,19 @@ gulp.task('img-assets', () => {
  *
  */
 gulp.task('sass-build', () => {
-	if (isDevelopment()) {
-		return gulp.src('src/sass/*.scss')
-			.pipe(sass())
-			.pipe(fconcat('style.min.css'))
-			.pipe(cssmin({restructure: false}))
-			.pipe(gulp.dest(`${BUILD_DIR}/css`));
-	} else {
-		return gulp.src('src/sass/*.scss')
-			.pipe(sass())
-			.pipe(fconcat('style.min.css'))
-			.pipe(cssmin())
-			.pipe(gulp.dest(`${BUILD_DIR}/css`));
-	}
+    if (isDevelopment()) {
+        return gulp.src('src/sass/*.scss')
+            .pipe(sass())
+            .pipe(fconcat('style.min.css'))
+            .pipe(cssmin({restructure: false}))
+            .pipe(gulp.dest(`${BUILD_DIR}/css`));
+    } else {
+        return gulp.src('src/sass/*.scss')
+            .pipe(sass())
+            .pipe(fconcat('style.min.css'))
+            .pipe(cssmin())
+            .pipe(gulp.dest(`${BUILD_DIR}/css`));
+    }
 });
 
 /**
@@ -75,31 +75,31 @@ gulp.task('sass-build', () => {
  *
  */
 gulp.task('vendor-css-build', () => {
-	return gulp.src('vendor/css/*.css')
-		.pipe(gulp.dest(`${BUILD_DIR}/css`));
+    return gulp.src('vendor/css/*.css')
+        .pipe(gulp.dest(`${BUILD_DIR}/css`));
 });
 
 gulp.task('vendor-js-build', () => {
-	return gulp.src('vendor/js/*.js')
-		.pipe(gulp.dest(`${BUILD_DIR}/js/vendor`));
+    return gulp.src('vendor/js/*.js')
+        .pipe(gulp.dest(`${BUILD_DIR}/js/vendor`));
 });
 
 gulp.task('main-es6-es5', (callback) => {
-	if (isDevelopment()) {
-		return gulp.src(['src/js/**/*.js', '!src/js/front-page/*.js'])
-			.pipe(babel({
-				presets: ['env']
-			}))
-			.pipe(gulp.dest(`${BUILD_DIR}/js/normal`));
+    if (isDevelopment()) {
+        return gulp.src(['src/js/**/*.js', '!src/js/front-page/*.js'])
+            .pipe(babel({
+                presets: ['env']
+            }))
+            .pipe(gulp.dest(`${BUILD_DIR}/js/normal`));
 
-	} else {
-		return gulp.src(['src/js/**/*.js', '!src/js/front-page/*.js'])
-			.pipe(babel({
-				presets: ['env']
-			}))
-			.pipe(uglify())
-			.pipe(gulp.dest(`${BUILD_DIR}/js/normal`));
-	}
+    } else {
+        return gulp.src(['src/js/**/*.js', '!src/js/front-page/*.js'])
+            .pipe(babel({
+                presets: ['env']
+            }))
+            .pipe(uglify())
+            .pipe(gulp.dest(`${BUILD_DIR}/js/normal`));
+    }
 });
 
 /**
@@ -108,42 +108,42 @@ gulp.task('main-es6-es5', (callback) => {
  */
 
 gulp.task('app-es6-commonjs', () => {
-	return gulp.src(['src/js/front-page/*.js'])
-		.pipe(babel({
-			presets: ['env']
-		}))
-		.pipe(gulp.dest(`${BUILD_DIR}/js/temp`));
+    return gulp.src(['src/js/front-page/*.js'])
+        .pipe(babel({
+            presets: ['env']
+        }))
+        .pipe(gulp.dest(`${BUILD_DIR}/js/temp`));
 });
 
 gulp.task('front-bundle', () => {
-	let bundleStream = browserify(`${BUILD_DIR}/js/temp/about.js`).bundle();
+    let bundleStream = browserify(`${BUILD_DIR}/js/temp/about.js`).bundle();
 
-	if (isDevelopment()) {
-		return bundleStream
-			.pipe(source('bundle.js'))
-			.pipe(buffer())
-			.pipe(rename('bundle.js'))
-			.pipe(gulp.dest(`${BUILD_DIR}/js/front`));
-	} else {
-		return bundleStream
-			.pipe(source('bundle.js'))
-			.pipe(buffer())
-			.pipe(uglify())
-			.pipe(rename('bundle.js'))
-			.pipe(gulp.dest(`${BUILD_DIR}/js/front`));
-	}
+    if (isDevelopment()) {
+        return bundleStream
+            .pipe(source('bundle.js'))
+            .pipe(buffer())
+            .pipe(rename('bundle.js'))
+            .pipe(gulp.dest(`${BUILD_DIR}/js/front`));
+    } else {
+        return bundleStream
+            .pipe(source('bundle.js'))
+            .pipe(buffer())
+            .pipe(uglify())
+            .pipe(rename('bundle.js'))
+            .pipe(gulp.dest(`${BUILD_DIR}/js/front`));
+    }
 });
 
 gulp.task('js-bundle-regular', () => {
-	return gulp.src([`${BUILD_DIR}/js/vendor/*.js`, `${BUILD_DIR}/js/normal/*.js`])
-		.pipe(fconcat('main.min.js'))
-		.pipe(gulp.dest(`${THEME_DIR}/js`));
+    return gulp.src([`${BUILD_DIR}/js/vendor/*.js`, `${BUILD_DIR}/js/normal/*.js`])
+        .pipe(fconcat('main.min.js'))
+        .pipe(gulp.dest(`${THEME_DIR}/js`));
 });
 
 gulp.task('js-bundle-front', () => {
-	return gulp.src([`${BUILD_DIR}/js/front/*.js`])
-		.pipe(fconcat('front.min.js'))
-		.pipe(gulp.dest(`${THEME_DIR}/js`));
+    return gulp.src([`${BUILD_DIR}/js/front/*.js`])
+        .pipe(fconcat('front.min.js'))
+        .pipe(gulp.dest(`${THEME_DIR}/js`));
 });
 
 /**
@@ -151,13 +151,13 @@ gulp.task('js-bundle-front', () => {
  *
  */
 gulp.task('vendor-font-build', () => {
-	return gulp.src(['vendor/fonts/*.eot',
-		'vendor/fonts/*.svg',
-		'vendor/fonts/*.ttf',
-		'vendor/fonts/*.woff',
-		'vendor/fonts/*.woff2',
-		'vendor/fonts/*.otf'])
-		.pipe(gulp.dest(`${THEME_DIR}/fonts`));
+    return gulp.src(['vendor/fonts/*.eot',
+        'vendor/fonts/*.svg',
+        'vendor/fonts/*.ttf',
+        'vendor/fonts/*.woff',
+        'vendor/fonts/*.woff2',
+        'vendor/fonts/*.otf'])
+        .pipe(gulp.dest(`${THEME_DIR}/fonts`));
 });
 
 /**
@@ -165,50 +165,50 @@ gulp.task('vendor-font-build', () => {
  *
  */
 gulp.task('css-bundle', () => {
-	if (isDevelopment()) {
-		return gulp.src(`${BUILD_DIR}/css/*.css`)
-			.pipe(fconcat('style.min.css'))
-			.pipe(cssmin({restructure: false}))
-			.pipe(gulp.dest(THEME_DIR));
-	} else {
-		return gulp.src(`${BUILD_DIR}/css/*.css`)
-			.pipe(fconcat('style.min.css'))
-			.pipe(cssmin())
-			.pipe(gulp.dest(THEME_DIR));
-	}
+    if (isDevelopment()) {
+        return gulp.src(`${BUILD_DIR}/css/*.css`)
+            .pipe(fconcat('style.min.css'))
+            .pipe(cssmin({restructure: false}))
+            .pipe(gulp.dest(THEME_DIR));
+    } else {
+        return gulp.src(`${BUILD_DIR}/css/*.css`)
+            .pipe(fconcat('style.min.css'))
+            .pipe(cssmin())
+            .pipe(gulp.dest(THEME_DIR));
+    }
 });
 
 // CSS specific combined tasks
 gulp.task('build-css', (cb) => {
-	sequence(['sass-build', 'vendor-css-build'], 'css-bundle')(cb);
+    sequence(['sass-build', 'vendor-css-build'], 'css-bundle')(cb);
 });
 
 // Build JS
 gulp.task('build-app', (cb) => {
-	sequence(['app-es6-commonjs'], 'front-bundle')(cb);
+    sequence(['app-es6-commonjs'], 'front-bundle')(cb);
 });
 
 gulp.task('build-js', (cb) => {
-	sequence(['main-es6-es5', 'build-app', 'vendor-js-build'], ['js-bundle-front', 'js-bundle-regular'])(cb);
+    sequence(['main-es6-es5', 'build-app', 'vendor-js-build'], ['js-bundle-front', 'js-bundle-regular'])(cb);
 });
 
 // Watch events
 gulp.task('watch', () => {
-	gulp.watch('src/twig/**/*', ['default']);
-	gulp.watch('src/sass/**/*', ['watch-sass']);
-	gulp.watch('src/js/**/*', ['watch-js']);
-	console.log('Keeping an eye on the project files...');
+    gulp.watch('src/twig/**/*', ['default']);
+    gulp.watch('src/sass/**/*', ['watch-sass']);
+    gulp.watch('src/js/**/*', ['watch-js']);
+    console.log('Keeping an eye on the project files...');
 });
 
 gulp.task('watch-js', (callback) => {
-	sequence(['build-js'], 'clean')(callback);
+    sequence(['build-js'], 'clean')(callback);
 });
 
 gulp.task('watch-sass', (callback) => {
-	sequence(['build-css'], 'clean')(callback);
+    sequence(['build-css'], 'clean')(callback);
 });
 
 // Prefered executables
 gulp.task('default', (callback) => {
-	sequence(['twig', 'img-assets', 'build-css', 'build-js', 'vendor-font-build'], 'clean')(callback);
+    sequence(['twig', 'img-assets', 'build-css', 'build-js', 'vendor-font-build'], 'clean')(callback);
 });

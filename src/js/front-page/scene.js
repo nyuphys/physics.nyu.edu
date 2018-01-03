@@ -4,113 +4,113 @@ import AboutApp from './aboutapp.js';
 let Container = PIXI.Container;
 
 export default class Scene {
-	constructor(opts = {}) {
-		this.actors        = [];              // Array of all actors in Scene
-		this.container     = new Container(); // PIXI reference for the Scene
-		this.animating     = false;           // Toggle for run loop
-		this.haltAnimation = false;           // Flag to halt the run loop
-		this.oldTick       = 0;               // Previous tick date
-		this.firstTick     = 0;               // First tick data
-		this.options       = opts;            // Any other options
+    constructor(opts = {}) {
+        this.actors        = [];              // Array of all actors in Scene
+        this.container     = new Container(); // PIXI reference for the Scene
+        this.animating     = false;           // Toggle for run loop
+        this.haltAnimation = false;           // Flag to halt the run loop
+        this.oldTick       = 0;               // Previous tick date
+        this.firstTick     = 0;               // First tick data
+        this.options       = opts;            // Any other options
 
-		this.container.visible = false; // Defaulting the visibility of the scene to... not.
-	}
+        this.container.visible = false; // Defaulting the visibility of the scene to... not.
+    }
 
-	// Setup and pass 'render' to requestAnimationFrame
-	start() {
-		console.log('Not implemented');
-	}
+    // Setup and pass 'render' to requestAnimationFrame
+    start() {
+        console.log('Not implemented');
+    }
 
-	// Any scene drawing logic MUST be in this!
-	update(state) {
-		console.log('Not implemented');
-	}
+    // Any scene drawing logic MUST be in this!
+    update(state) {
+        console.log('Not implemented');
+    }
 
-	begin() {
-		this.animating         = true;
-		this.container.visible = true;
-		this.setupTimes();
-		
-		this.render();
+    begin() {
+        this.animating         = true;
+        this.container.visible = true;
+        this.setupTimes();
 
-		// Using global function to preserve the app's context
-		window.requestAnimationFrame(appAnimate);
-	}
+        this.render();
 
-	restart() {
-		this.haltAnimation = false;
+        // Using global function to preserve the app's context
+        window.requestAnimationFrame(appAnimate);
+    }
 
-		this.render();
-		window.requestAnimationFrame(appAnimate);
-	}
+    restart() {
+        this.haltAnimation = false;
 
-	stop() {
-		this.haltAnimation = true;
-	}
+        this.render();
+        window.requestAnimationFrame(appAnimate);
+    }
 
-	setupTimes() {
-		this.firstTick = Date.now();
-		this.oldTick   = Date.now();
-	}
+    stop() {
+        this.haltAnimation = true;
+    }
 
-	render() {
-		let activeTick = Date.now(),
-			// Time since last frame draw (seconds)
-			dt = (activeTick - this.oldTick) * 0.001,
-			// Time since start of drawing (seconds)
-			Dt = (activeTick - this.firstTick) * 0.001;
+    setupTimes() {
+        this.firstTick = Date.now();
+        this.oldTick   = Date.now();
+    }
 
-		// Scene-specific drawing code is here
-		this.update({active: activeTick, dt: dt, Dt: Dt});
+    render() {
+        let activeTick = Date.now(),
+            // Time since last frame draw (seconds)
+            dt = (activeTick - this.oldTick) * 0.001,
+            // Time since start of drawing (seconds)
+            Dt = (activeTick - this.firstTick) * 0.001;
 
-		this.oldTick = activeTick;
-	}
+        // Scene-specific drawing code is here
+        this.update({active: activeTick, dt: dt, Dt: Dt});
 
-	hasActor(actor) {
-		for (let a in this.actors) {
-			if (a.uuid === actor.uuid) {
-				return true;
-			}
-		}
+        this.oldTick = activeTick;
+    }
 
-		return false;
-	}
+    hasActor(actor) {
+        for (let a in this.actors) {
+            if (a.uuid === actor.uuid) {
+                return true;
+            }
+        }
 
-	attachActor(actor) {
-		if (!(actor instanceof Actor)) {
-			return false;
-		}
+        return false;
+    }
 
-		if (!this.hasActor(actor)) {
-			this.actors.push(actor);
-			this.container.addChild(actor.gfx);
-			return true;
-		} else {
-			return false;
-		}
-	}
+    attachActor(actor) {
+        if (!(actor instanceof Actor)) {
+            return false;
+        }
 
-	removeActor(actor) {
-		if (typeof actor === 'string') {
-			for (let i = 0; i < this.actors.length; ++i) {
-				if (this.actors[i].uuid === actor) {
-					this.actors.splice(i);
-					this.container.removeChild(this.actors[i].gfx);
-					return true;
-				}
-			}
+        if (!this.hasActor(actor)) {
+            this.actors.push(actor);
+            this.container.addChild(actor.gfx);
+            return true;
+        } else {
+            return false;
+        }
+    }
 
-			return false;
-		} else {
-			for (let i = 0; i < this.actors.length; ++i) {
-				if (this.actors[i].uuid === actor.uuid) {
-					this.actors.splice(i);
-					this.container.removeChild(this.actors[i].gfx);
-					return true;
-				}
-			}
+    removeActor(actor) {
+        if (typeof actor === 'string') {
+            for (let i = 0; i < this.actors.length; ++i) {
+                if (this.actors[i].uuid === actor) {
+                    this.actors.splice(i);
+                    this.container.removeChild(this.actors[i].gfx);
+                    return true;
+                }
+            }
 
-			return false;
-		}
-	}
+            return false;
+        } else {
+            for (let i = 0; i < this.actors.length; ++i) {
+                if (this.actors[i].uuid === actor.uuid) {
+                    this.actors.splice(i);
+                    this.container.removeChild(this.actors[i].gfx);
+                    return true;
+                }
+            }
+
+            return false;
+        }
+    }
 }

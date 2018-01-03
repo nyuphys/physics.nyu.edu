@@ -5,59 +5,59 @@ import AboutApp from './aboutapp.js';
 let Graphics = PIXI.Graphics();
 
 class SunActor extends Actor {
-	constructor(x, y, r, color, strokeColor) {
-		super(new Graphics());
+    constructor(x, y, r, color, strokeColor) {
+        super(new Graphics());
 
-		this.x = x;	
-		this.y = y;
-		this.r = r;
-		this.color = color;
-		this.strokeColor = strokeColor;
+        this.x = x;	
+        this.y = y;
+        this.r = r;
+        this.color = color;
+        this.strokeColor = strokeColor;
 
-		this.gfx.x = this.x;
-		this.gfx.y = this.y;
-	}
+        this.gfx.x = this.x;
+        this.gfx.y = this.y;
+    }
 
-	draw(scene, state) {
-		let srad = 0,
-			rad  = 0;
+    draw(scene, state) {
+        let srad = 0,
+            rad  = 0;
 
-		if (this.r < 1 && this.r > 0) { // Use width as reference pixel size
-			rad  = this.translateX(this.r, AboutApp.currentApp().pixApp);
-		} else {
-			rad  = this.r;
-		}
+        if (this.r < 1 && this.r > 0) { // Use width as reference pixel size
+            rad  = this.translateX(this.r, AboutApp.currentApp().pixApp);
+        } else {
+            rad  = this.r;
+        }
 
-		srad = (rad / 8) * (Math.sin((Math.PI / 8) * (state.Dt)) * Math.sin((Math.PI / 8) * (state.Dt)));
+        srad = (rad / 8) * (Math.sin((Math.PI / 8) * (state.Dt)) * Math.sin((Math.PI / 8) * (state.Dt)));
 
-		this.gfx.clear();
+        this.gfx.clear();
 
-		this.gfx.beginFill(this.color);
-		this.gfx.lineStyle(srad, this.strokeColor, 1).drawCircle(0, 0, rad);
-		this.gfx.endFill();
+        this.gfx.beginFill(this.color);
+        this.gfx.lineStyle(srad, this.strokeColor, 1).drawCircle(0, 0, rad);
+        this.gfx.endFill();
 
-		this.gfx.x = this.x;
-		this.gfx.y = this.y;
-	}
+        this.gfx.x = this.x;
+        this.gfx.y = this.y;
+    }
 }
 
 export default class DayScene extends Scene {
-	constructor(opts = {}) {
-		super(opts);
-	}
+    constructor(opts = {}) {
+        super(opts);
+    }
 
-	start() {
-		let sun = new SunActor(0.95, 0.05, 0.13, 0xFFDC00, 0xFF851B);
+    start() {
+        let sun = new SunActor(0.95, 0.05, 0.13, 0xFFDC00, 0xFF851B);
 
-		this.attachActor(sun);
+        this.attachActor(sun);
 
-		// Sets up the general structure and begins the loop
-		this.begin();	
-	}
+        // Sets up the general structure and begins the loop
+        this.begin();	
+    }
 
-	update(state) {
-		for (let actor in this.actors) {
-			actor.draw(state);
-		}
-	}
+    update(state) {
+        for (let actor in this.actors) {
+            actor.draw(state);
+        }
+    }
 }
