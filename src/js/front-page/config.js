@@ -1,3 +1,6 @@
+import DayScene from './dayscene.js';
+import NightScene from './nightscene.js';
+
 const Config = {
 	equationRegistry: {
 		keplerEq: {

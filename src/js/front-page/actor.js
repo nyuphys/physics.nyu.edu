@@ -1,18 +1,19 @@
 export default class Actor {
-	constructor() {
-		this.uuid = uuidv4();
+	constructor(graphics) {
+		this.uuid = uuidv4(); // Unique ID
+		this.gfx  = graphics; // The PIXI object to use
 	}
 
-	draw(context, options) {
+	draw(scene, state) {
 		console.log('Not implemented');
 	}
 
 	// Help with drawing
-	translateX(floatX, context) {
-		return floatX * context.canvas.width;
+	translateX(floatX, pixi) {
+		return floatX * pixi.width;
 	}
 
-	translateY(floatY, context) {
-		return floatY * context.canvas.height;
+	translateY(floatY, pixi) {
+		return floatY * pixi.height;
 	}
 }

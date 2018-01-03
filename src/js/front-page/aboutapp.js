@@ -1,5 +1,7 @@
 import Config from './config.js';
 
+let instance = null;
+
 export default class AboutApp {
 	constructor(theme) {
 		// Variable initialization
@@ -10,6 +12,17 @@ export default class AboutApp {
 		this.initEvents();
 		this.initPositions();
 		this.initScene();
+
+		// Persist singleton reference
+		instance = this;
+	}
+
+	static currentApp() {
+		if (!instance) {
+			return instance;
+		} else {
+			throw new Error('No current app!');
+		}
 	}
 
 	initEvents() {
@@ -40,6 +53,11 @@ export default class AboutApp {
 
 	initScene() {
 		// <new>
+		// Ensure animation global hook is defined
+		if (typeof appAnimate === 'undefined') {
+			throw new Error('Global animation method not found');
+		}
+
 		// Initialize PIXI instance
 		this.pixApp = new PIXI.Application({
 			width: $('.about').outerWidth(),
@@ -48,15 +66,26 @@ export default class AboutApp {
 			transparent: true
 		});
 
+		// Preserve original resolution
+		this.pixApp.renderer.autoResize = true;	
+
 		// Load PIXI canvas to the DOM and add reference in the app
 		doc.getElementById(CANVAS_PARENT).appendChild(this.pixApp.view);
 		this._canvas = this.pixApp.view;
 
 		// Initialize the active scene
 		if (Config.themes.hasOwnProperty(this.activeTheme)) {
-			this.activeScene = new Config.themes[this.activeTheme].scene(this.pixApp, Config.themes[this.activeTheme].options);
+			this.activeScene = new Config.themes[this.activeTheme].scene(Config.themes[this.activeTheme].options);
 		} else {
 			throw new Error('No known theme registered.');
+		}
+
+		// Allow scene to initialize
+		if (!!this.activeScene) {
+			this.pixApp.stage.addChild(this.activeScene.container);
+			this.activeScene.start();
+		} else {
+			throw new Error ('Scene not loaded for some reason');
 		}
 
 		// </new>
@@ -134,7 +163,7 @@ export default class AboutApp {
 				continue;
 			}
 
-			$(`#${k}Ghost`).on('mouseover', app.handleClickAnimation);
+			$(`#${k}Ghost`).on('mouseover', AboutApp.currentApp().handleClickAnimation);
 		}
 	}
 
@@ -145,7 +174,7 @@ export default class AboutApp {
 
 				if ($('.about').hasClass(Config.equationRegistry[id].theme)) {
 					$(val).addClass(`${Config.equationRegistry[id].appear} animated visible`).one(Config.events.animationEnd, function (e) {
-						app.updateEquationClickzones();
+						AboutApp.currentApp().updateEquationClickzones();
 						$(this).removeClass('animated');
 					});
 				}
