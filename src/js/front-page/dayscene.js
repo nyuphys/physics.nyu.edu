@@ -2,7 +2,7 @@ import Scene from './scene.js';
 import Actor from './actor.js';
 import AboutApp from './aboutapp.js';
 
-let Graphics = PIXI.Graphics();
+let Graphics = PIXI.Graphics;
 
 class SunActor extends Actor {
     constructor(x, y, r, color, strokeColor) {
@@ -13,9 +13,6 @@ class SunActor extends Actor {
         this.r = r;
         this.color = color;
         this.strokeColor = strokeColor;
-
-        this.gfx.x = this.x;
-        this.gfx.y = this.y;
     }
 
     draw(scene, state) {
@@ -23,7 +20,7 @@ class SunActor extends Actor {
             rad  = 0;
 
         if (this.r < 1 && this.r > 0) { // Use width as reference pixel size
-            rad  = this.translateX(this.r, AboutApp.currentApp().pixApp);
+            rad  = this.translateX(this.r);
         } else {
             rad  = this.r;
         }
@@ -36,8 +33,8 @@ class SunActor extends Actor {
         this.gfx.lineStyle(srad, this.strokeColor, 1).drawCircle(0, 0, rad);
         this.gfx.endFill();
 
-        this.gfx.x = this.x;
-        this.gfx.y = this.y;
+        this.gfx.x = this.translateX(this.x);
+        this.gfx.y = this.translateY(this.y);
     }
 }
 
@@ -56,8 +53,8 @@ export default class DayScene extends Scene {
     }
 
     update(state) {
-        for (let actor in this.actors) {
-            actor.draw(state);
+        for (let i = 0; i < this.actors.length; i++) {
+            this.actors[i].draw(this, state);
         }
     }
 }

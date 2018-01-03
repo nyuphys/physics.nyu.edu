@@ -1,5 +1,7 @@
 import Actor from './actor.js';
+import Scene from './scene.js';
 import {randIntInclusive} from './util.js';
+import AboutApp from './aboutapp.js';
 
 let Graphics = PIXI.Graphics;
 
@@ -15,9 +17,6 @@ class StarActor extends Actor {
         this.y = y;
         this.r = r;
         this.color = color;
-
-        this.gfx.x = this.x;
-        this.gfx.y = this.y;
     }
 
     draw(scene, state) {
@@ -35,6 +34,9 @@ class StarActor extends Actor {
         this.gfx.beginFill(this.color);
         this.gfx.drawCircle(0, 0, this.r);
         this.gfx.endFill();
+        
+        this.gfx.x = this.translateX(this.x);
+        this.gfx.y = this.translateY(this.y);
     }
 }
 
@@ -54,5 +56,11 @@ export default class NightScene extends Scene {
 
         // Sets up the general structure and begins the loop
         this.begin();
+    }
+
+    update(state) {
+        for (let i = 0; i < this.actors.length; i++) {
+            this.actors[i].draw(this, state);
+        }
     }
 }

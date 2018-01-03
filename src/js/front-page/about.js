@@ -14,13 +14,6 @@ import {randIntInclusive} from './util.js';
 // 2. Globals
 let oldScroll = 0;
 
-function appAnimate() {
-    if (!AboutApp.currentApp().activeScene.haltAnimation) {
-        AboutApp.currentApp().activeScene.render();
-        window.requestAnimationFrame(appAnimate);
-    }
-}
-
 function pageTick() {
     let off = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
 
@@ -37,9 +30,10 @@ function pageTick() {
 $(document).ready(function (e) {
     let index = randIntInclusive(0, Config.themes.length - 1);
 
-    $('.about').addClass(Config.themes[index]);
+    $('.about').addClass(Config.themes[index].id);
     $('.about').trigger(Config.events.backgroundReady);
 
+    new AboutApp(Config.themes[index].id); // Starts the app up
 });
 
 $(window).on('scroll', function (e) {
@@ -72,6 +66,8 @@ $(window).resize(function (e) {
         AboutApp.currentApp().pixApp.renderer.resize($('.about').outerWidth(), $('.about').outerHeight());
         //doc.getElementById(CANVAS).width = $('.about').outerWidth();
         //doc.getElementById(CANVAS).height = $('.about').outerHeight();
+        //AboutApp.currentApp().pixApp.view.style.width  = `${$('.about').outerWidth()}px`;
+        //AboutApp.currentApp().pixApp.view.style.height = `${$('.about').outerHeight()}px`;
 
         // Animation should redraw the scene; however, the resize event will clear the context if there's no animation
         if (!AboutApp.currentApp().activeScene.animating) {

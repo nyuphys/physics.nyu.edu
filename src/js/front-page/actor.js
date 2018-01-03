@@ -1,3 +1,5 @@
+import AboutApp from './aboutapp.js';
+
 export default class Actor {
     constructor(graphics) {
         this.uuid = uuidv4(); // Unique ID
@@ -9,11 +11,11 @@ export default class Actor {
     }
 
     // Help with drawing
-    translateX(floatX, pixi) {
-        return floatX * pixi.width;
+    translateX(floatX) {
+        return floatX * AboutApp.currentApp().pixApp.renderer.width;
     }
 
-    translateY(floatY, pixi) {
-        return floatY * pixi.height;
+    translateY(floatY) {
+        return floatY * AboutApp.currentApp().pixApp.renderer.height;
     }
 }

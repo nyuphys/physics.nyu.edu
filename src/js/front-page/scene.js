@@ -34,14 +34,14 @@ export default class Scene {
         this.render();
 
         // Using global function to preserve the app's context
-        window.requestAnimationFrame(appAnimate);
+        window.requestAnimationFrame(AboutApp.appAnimate);
     }
 
     restart() {
         this.haltAnimation = false;
 
         this.render();
-        window.requestAnimationFrame(appAnimate);
+        window.requestAnimationFrame(AboutApp.appAnimate);
     }
 
     stop() {

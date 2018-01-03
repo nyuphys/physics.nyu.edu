@@ -36,18 +36,17 @@ const Config = {
         }
     },
 
-    themes : {
-        'clear-skies' : {
+    themes : [{
+            id: 'clear-skies',
             scene: DayScene
-        },
-
-        'night' : {
+        }, {
+            id: 'night',
             scene: NightScene,
             options: {
                 numStars: 60
             }
-        }	
-    },
+        }
+    ],
 
     events : {
         animationEnd: 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend',

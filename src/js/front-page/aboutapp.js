@@ -1,6 +1,7 @@
 import Config from './config.js';
 
 let instance = null;
+let CANVAS_PARENT='about-equations';
 
 export default class AboutApp {
     constructor(theme) {
@@ -9,19 +10,26 @@ export default class AboutApp {
         this.activeScene = null;
         this._canvas     = null;
 
+        // Persist singleton reference
+        instance = this;
+
         this.initEvents();
         this.initPositions();
         this.initScene();
-
-        // Persist singleton reference
-        instance = this;
     }
 
     static currentApp() {
-        if (!instance) {
+        if (!!instance) {
             return instance;
         } else {
             throw new Error('No current app!');
+        }
+    }
+
+    static appAnimate() {
+        if (!AboutApp.currentApp().activeScene.haltAnimation) {
+            AboutApp.currentApp().activeScene.render();
+            window.requestAnimationFrame(AboutApp.appAnimate);
         }
     }
 
@@ -53,11 +61,6 @@ export default class AboutApp {
 
     initScene() {
         // <new>
-        // Ensure animation global hook is defined
-        if (typeof appAnimate === 'undefined') {
-            throw new Error('Global animation method not found');
-        }
-
         // Initialize PIXI instance
         this.pixApp = new PIXI.Application({
             width: $('.about').outerWidth(),
@@ -67,17 +70,26 @@ export default class AboutApp {
         });
 
         // Preserve original resolution
-        this.pixApp.renderer.autoResize = true;	
+        //this.pixApp.renderer.autoResize = true;	
 
         // Load PIXI canvas to the DOM and add reference in the app
-        doc.getElementById(CANVAS_PARENT).appendChild(this.pixApp.view);
+        document.getElementById(CANVAS_PARENT).appendChild(this.pixApp.view);
         this._canvas = this.pixApp.view;
 
         // Initialize the active scene
-        if (Config.themes.hasOwnProperty(this.activeTheme)) {
-            this.activeScene = new Config.themes[this.activeTheme].scene(Config.themes[this.activeTheme].options);
-        } else {
-            throw new Error('No known theme registered.');
+        let found = false;
+
+        for (let i = 0; i < Config.themes.length; i++) {
+            let element = Config.themes[i];
+
+            if (element.id === this.activeTheme) {
+                this.activeScene = new element.scene(element.options);
+                found = true;
+            }
+        }
+
+        if (!found) {
+            throw new Error(`activeTheme '${this.activeTheme}' not found`);
         }
 
         // Allow scene to initialize
@@ -89,30 +101,6 @@ export default class AboutApp {
         }
 
         // </new>
-        this._canvas = doc.getElementById(CANVAS);
-        this._canvas.width  = $('.about').outerWidth();
-        this._canvas.height = $('.about').outerHeight();
-
-        if (!!this._canvas.getContext) {
-            let ctx = this._canvas.getContext('2d');
-
-            switch (this.activeTheme) {
-                case 'clear-skies':
-                    this.activeScene = new DayScene(ctx);
-                    break;
-                case 'night':
-                    this.activeScene = new NightScene(ctx, 60);
-                    break;
-                default:
-                    throw new Error('No scene found');
-            }
-
-            if (!!this.activeScene) {
-                this.activeScene.start();
-            }
-        } else {
-            throw new Error('No context function defined');
-        }
     }
 
     generateEquationClickzones() {
