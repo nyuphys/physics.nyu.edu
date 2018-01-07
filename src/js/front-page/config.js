@@ -1,7 +1,10 @@
 import DayScene from './dayscene.js';
 import NightScene from './nightscene.js';
+import WinterScene from './winterscene.js';
 
 const Config = {
+    debug: false,
+
     equationRegistry: {
         keplerEq: {
             theme: 'night',
@@ -44,6 +47,13 @@ const Config = {
             scene: NightScene,
             options: {
                 numStars: 60
+            }
+        }, {
+            id: 'winter',
+            scene: WinterScene,
+            options: {
+                emX: 0.5,
+                emY: 0.5
             }
         }
     ],

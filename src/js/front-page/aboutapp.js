@@ -33,6 +33,12 @@ export default class AboutApp {
         }
     }
 
+    static DEBUG(message) {
+        if (Config.debug) {
+            console.log(`${new Date().toLocaleTimeString()} App: ${message}`);
+        }
+    }
+
     initEvents() {
         $('.about').one(Config.events.fadeIn, this.handleAppearAnimation);
     }

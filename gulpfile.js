@@ -11,6 +11,7 @@ const gulp     = require('gulp'),
     source     = require('vinyl-source-stream'),
     buffer     = require('vinyl-buffer'),
     rename     = require('gulp-rename'),
+    sourcemaps = require('gulp-sourcemaps'),
 
     THEME_NAME = 'sps',
     THEME_DIR  = `web/themes/${THEME_NAME}`,
@@ -80,26 +81,16 @@ gulp.task('vendor-css-build', () => {
 });
 
 gulp.task('vendor-js-build', () => {
-    return gulp.src('vendor/js/*.js')
-        .pipe(gulp.dest(`${BUILD_DIR}/js/vendor`));
+     return gulp.src('vendor/js/*.js')
+         .pipe(gulp.dest(`${BUILD_DIR}/js/vendor`)); 
 });
 
 gulp.task('main-es6-es5', (callback) => {
-    if (isDevelopment()) {
-        return gulp.src(['src/js/**/*.js', '!src/js/front-page/*.js'])
-            .pipe(babel({
-                presets: ['env']
-            }))
-            .pipe(gulp.dest(`${BUILD_DIR}/js/normal`));
-
-    } else {
-        return gulp.src(['src/js/**/*.js', '!src/js/front-page/*.js'])
-            .pipe(babel({
-                presets: ['env']
-            }))
-            .pipe(uglify())
-            .pipe(gulp.dest(`${BUILD_DIR}/js/normal`));
-    }
+    return gulp.src(['src/js/**/*.js', '!src/js/front-page/*.js'])
+        .pipe(babel({
+            presets: ['env']
+        }))
+        .pipe(gulp.dest(`${BUILD_DIR}/js/normal`));
 });
 
 /**
@@ -136,14 +127,29 @@ gulp.task('front-bundle', () => {
 
 gulp.task('js-bundle-regular', () => {
     return gulp.src([`${BUILD_DIR}/js/vendor/*.js`, `${BUILD_DIR}/js/normal/*.js`])
+        .pipe(sourcemaps.init({largeFile: true}))
         .pipe(fconcat('main.min.js'))
+        .pipe(uglify())
+        .pipe(sourcemaps.write('../maps'))
+        //.pipe(sourcemaps.write('./maps', {
+            //sourceMappingURL: function(file) {
+                //return `http://localhost:8010/themes/sps/js/maps/` + file.relative + '.map';
+            //}
+        //}))
         .pipe(gulp.dest(`${THEME_DIR}/js`));
 });
 
 gulp.task('js-bundle-front', () => {
-    return gulp.src([`${BUILD_DIR}/js/front/*.js`])
-        .pipe(fconcat('front.min.js'))
-        .pipe(gulp.dest(`${THEME_DIR}/js`));
+    if (isDevelopment()) {
+        return gulp.src([`${BUILD_DIR}/js/front/*.js`])
+            .pipe(fconcat('front.min.js'))
+            .pipe(gulp.dest(`${THEME_DIR}/js`));
+    } else {
+        return gulp.src([`${BUILD_DIR}/js/front/*.js`])
+            .pipe(fconcat('front.min.js'))
+            .pipe(uglify())
+            .pipe(gulp.dest(`${THEME_DIR}/js`));
+    }
 });
 
 /**
@@ -192,16 +198,25 @@ gulp.task('build-js', (cb) => {
     sequence(['main-es6-es5', 'build-app', 'vendor-js-build'], ['js-bundle-front', 'js-bundle-regular'])(cb);
 });
 
+gulp.task('build-js-app', (cb) => {
+    sequence(['build-app'], ['js-bundle-front'])(cb);
+});
+
 // Watch events
 gulp.task('watch', () => {
     gulp.watch('src/twig/**/*', ['default']);
     gulp.watch('src/sass/**/*', ['watch-sass']);
-    gulp.watch('src/js/**/*', ['watch-js']);
+    gulp.watch(['src/js/**/*', '!src/js/front-page/*'], ['watch-js']);
+    gulp.watch(['src/js/front-page/*'], ['watch-js-app']);
     console.log('Keeping an eye on the project files...');
 });
 
 gulp.task('watch-js', (callback) => {
     sequence(['build-js'], 'clean')(callback);
+});
+
+gulp.task('watch-js-app', (cb) => {
+    sequence(['build-js-app'], 'clean')(cb);
 });
 
 gulp.task('watch-sass', (callback) => {

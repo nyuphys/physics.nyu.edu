@@ -59,15 +59,23 @@ $(window).on('scroll', function (e) {
     oldScroll = off;
 });
 
+$(window).on('blur', function (e) {
+    // Disable animation to preserve CPU usage on browser
+    if (AboutApp.currentApp().activeScene.animating) {
+        AboutApp.currentApp().activeScene.stop();
+
+        $(window).one('focus', function (e) {
+            console.log('Restarting...');
+            AboutApp.currentApp().activeScene.restart();
+        });
+    }
+});
+
 $(window).resize(function (e) {
     AboutApp.currentApp().updateEquationClickzones();
 
     if (!!AboutApp.currentApp().activeScene) {
         AboutApp.currentApp().pixApp.renderer.resize($('.about').outerWidth(), $('.about').outerHeight());
-        //doc.getElementById(CANVAS).width = $('.about').outerWidth();
-        //doc.getElementById(CANVAS).height = $('.about').outerHeight();
-        //AboutApp.currentApp().pixApp.view.style.width  = `${$('.about').outerWidth()}px`;
-        //AboutApp.currentApp().pixApp.view.style.height = `${$('.about').outerHeight()}px`;
 
         // Animation should redraw the scene; however, the resize event will clear the context if there's no animation
         if (!AboutApp.currentApp().activeScene.animating) {

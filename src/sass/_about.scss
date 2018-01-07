@@ -2,126 +2,153 @@
 
 $sky-blue: #55A3F7;
 $night-navy: #011529;
-$cloudy-grey: #AAAAAA;
+$cloudy-grey: #454545;
+$light-grey: #D7D5E8;
 $pale-seafoam: lighten($seafoamlt, 20%);
+$winter-blue: #C3E2F3;
 
 $sky-text: #0D0C31;
 
+$bg-size: 30%;
+
 section.about {
-  height: 100vh;
-  overflow: hidden;
+    height: 100vh;
+    overflow: hidden;
 
-  .about-equations {
-    position: relative;
-    width: 100%;
-    height: inherit;
+    .about-equations {
+        position: relative;
+        width: 100%;
+        height: inherit;
 
-    canvas {
-      width: 100%;
-      height: 100%;
+        canvas {
+            width: 100%;
+            height: 100%;
+        }
+
+        .equation {
+            display: none;
+            position: absolute;
+            visibility: hidden;
+
+            @include mq('xs', max) {
+                .MathJax_CHTML {
+                    font-size: 95% !important;
+                }
+            }
+
+            @include mq('sm') {
+                .MathJax_CHTML {
+                    font-size: 125% !important;
+                }
+            }
+
+            @include mq('md') {
+                .MathJax_CHTML {
+                    font-size: 150% !important;
+                }
+            }
+        }
+
+        .equation.visible {
+            display: block;
+            visibility: visible;
+            opacity: .8;
+        }
     }
 
-    .equation {
-      display: none;
-      position: absolute;
-      visibility: hidden;
+    .about-container {
+        position: relative;
+        text-align: center;
+        height: 100%;
+        top: -100%;
 
-      @include mq('xs', max) {
-        .MathJax_CHTML {
-          font-size: 95% !important;
-        }
-      }
+        .about-block {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
 
-      @include mq('sm') {
-        .MathJax_CHTML {
-          font-size: 125% !important;
-        }
-      }
+            h1 {
+                display: inline-block;
+                vertical-align: middle;
 
-      @include mq('md') {
-        .MathJax_CHTML {
-          font-size: 150% !important;
+                font: {
+                    size: 40pt;
+                    weight: 300;
+                }
+
+                @include mq('xs', max) {
+                    font-size: 24pt;
+                }
+            }
         }
-      }
     }
-
-    .equation.visible {
-      display: block;
-      visibility: visible;
-      opacity: .8;
-    }
-  }
-
-  .about-container {
-    position: relative;
-    text-align: center;
-    height: 100%;
-    top: -100%;
-
-    .about-block {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-
-      h1 {
-        display: inline-block;
-        vertical-align: middle;
-
-        font: {
-          size: 40pt;
-          weight: 300;
-        }
-
-        @include mq('xs', max) {
-          font-size: 24pt;
-        }
-      }
-    }
-  }
 }
 
 section.about.clear-skies {
-  background-color: $sky-blue;
+    background-color: $sky-blue;
 
-  .about-equations {
-    color: $sky-text;
-  }
-
-  .about-container {
-    @include textshadow(2pt, transparentize($sky-text, 0.85));
-
-    background: {
-      repeat: no-repeat;
-      position: bottom center;
-      size: 30%;
+    .about-equations {
+        color: $sky-text;
     }
 
-    h1 {
-      @include linkdynamicinv($sky-text);
-      color: $sky-text;
+    .about-container {
+        @include textshadow(2pt, transparentize($sky-text, 0.85));
+
+        background: {
+            repeat: no-repeat;
+            position: bottom center;
+            size: $bg-size;
+        }
+
+        h1 {
+            @include linkdynamicinv($sky-text);
+            color: $sky-text;
+        }
     }
-  }
 }
 
 section.about.night {
-  background-color: $night-navy;
+    background-color: $night-navy;
 
-  .about-equations {
-    color: $seafoamlt;
-  }
-
-  .about-container {
-    @include textshadow(2pt, transparentize($seafoamdk, 0.85));
-
-    background: {
-      repeat: no-repeat;
-      position: bottom center;
-      size: 30%;
+    .about-equations {
+        color: $seafoamlt;
     }
 
-    h1 {
-      @include linkdynamicinv($seafoamlt);
-      color: $seafoamlt;
+    .about-container {
+        @include textshadow(2pt, transparentize($seafoamdk, 0.85));
+
+        background: {
+            repeat: no-repeat;
+            position: bottom center;
+            size: $bg-size;
+        }
+
+        h1 {
+            @include linkdynamicinv($seafoamlt);
+            color: $seafoamlt;
+        }
     }
-  }
+}
+
+section.about.winter {
+    background-color: $cloudy-grey;
+
+    .about-equations {
+        color: $light-grey; 
+    }
+
+    .about-container {
+        @include textshadow(2pt, transparentize($winter-blue, 0.85));
+
+        background: {
+            repeat: no-repeat;
+            position: bottom center;
+            size: $bg-size;
+        }
+
+        h1 {
+            @include linkdynamicinv($winter-blue);
+            color: $winter-blue;
+        }
+    }
 }
