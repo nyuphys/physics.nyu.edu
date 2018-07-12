@@ -23,3 +23,6 @@ web/config/options.conf
 
 # Web posts ignored so nothing gets overwritten
 web/content/posts
+
+# Affinity Designer documents
+*.afphoto
