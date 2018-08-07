@@ -1,9 +1,10 @@
 import AboutApp from './aboutapp.js';
+import {randString} from './util.js';
 
 export default class Actor {
     constructor(graphics) {
-        this.uuid = uuidv4(); // Unique ID
-        this.gfx  = graphics; // The PIXI object to use
+        this.uuid = randString(); // Unique ID
+        this.gfx  = graphics;   // The PIXI object to use
     }
 
     draw(scene, state) {

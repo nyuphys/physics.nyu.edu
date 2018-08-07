@@ -26,3 +26,6 @@ web/content/posts
 
 # Affinity Designer documents
 *.afphoto
+
+# VSCode project dir
+.vscode

@@ -13,7 +13,9 @@
     "url": "https://github.com/psanker/physics.nyu.edu.git"
   },
   "scripts": {
-    "start": "docker-compose up"
+    "start": "docker-compose up",
+    "dev": "NODE_ENV=development gulp",
+    "prod": "gulp"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
